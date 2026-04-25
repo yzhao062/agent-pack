@@ -1,0 +1,24 @@
+SPDX-License-Identifier: CC-BY-4.0
+
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+This file declares that the files in this repository carrying an
+"SPDX-License-Identifier: CC-BY-4.0" header (notably docs/rule-pack.md
+and docs/paper-workflow.md) are licensed under the terms of the
+Creative Commons Attribution 4.0 International Public License.
+
+Full legal text:
+    https://creativecommons.org/licenses/by/4.0/legalcode
+
+Plain-language summary:
+    https://creativecommons.org/licenses/by/4.0/
+
+Attribution notice for downstream forks: when you fork this repo and
+keep portions of the licensed prose, retain the SPDX header at the
+top of each file and credit the upstream as
+    Yue Zhao, https://github.com/yzhao062/agent-pack
+in your fork's README or the same file's frontmatter.
+
+Code in this repository (pack.yaml, scripts/, .github/, etc.) is
+licensed separately under the Apache License 2.0 in the top-level
+LICENSE file, not under CC-BY-4.0.

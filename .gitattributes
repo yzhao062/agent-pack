@@ -1,0 +1,9 @@
+# Force binary handling for asset files so they do not pollute text diffs
+# and do not break `git diff --check`.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary

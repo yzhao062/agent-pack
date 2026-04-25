@@ -1,0 +1,85 @@
+# pack.yaml — self-describing manifest for the agent-pack repo.
+#
+# Schema mirrors anywhere-agents v2 manifest (bootstrap/packs.yaml shape).
+#
+# v0.4.0 note:
+#   Stock anywhere-agents v0.4.0 cannot discover this third-party manifest
+#   from a consumer agent-config.yaml. Its legacy rule_packs path resolves
+#   names already registered in the bootstrap manifest of anywhere-agents
+#   itself. To use these passive bodies today, either:
+#     (a) copy docs/rule-pack.md and docs/paper-workflow.md into the
+#         consumer repo's AGENTS.local.md, or
+#     (b) register the packs in a bootstrap manifest you control (fork
+#         anywhere-agents, add entries pointing at this repo's source,
+#         point consumers at your fork via AGENT_CONFIG_UPSTREAM).
+#
+# v0.5.0+ note:
+#   Remote pack discovery is expected to read this manifest directly so
+#   `anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0`
+#   can install from a tag without forking. Active-kind packs (acad-skills)
+#   become loadable at the same time.
+
+version: 2
+
+packs:
+  - name: profile
+    description: >
+      Personal profile and working context for Yue Zhao: research focus,
+      public projects, communication preferences, tools, and conventions.
+      Loaded as passive content into the consumer AGENTS.md so any agent
+      (Claude Code, Codex, others) reads the context on session start.
+    source:
+      repo: https://github.com/yzhao062/agent-pack
+      ref: main   # development ref; consumers should pin a tag (e.g. v0.1.0) once published
+    update_policy: locked
+    passive:
+      - files:
+          - from: docs/rule-pack.md
+            to: AGENTS.md
+    maintainer: yzhao062
+
+  - name: paper-workflow
+    description: >
+      Conventions for paper / proposal repos that use Overleaf submodules
+      and co-PI collaboration. Submodule push / pull etiquette, Overleaf
+      merge-conflict resolution rules, NSF / NIH framework defaults, and
+      venue conventions. Load on academic-writing repos; skip on
+      prototype / OSS repos.
+    source:
+      repo: https://github.com/yzhao062/agent-pack
+      ref: main   # development ref; consumers should pin a tag (e.g. v0.1.0) once published
+    update_policy: locked
+    passive:
+      - files:
+          - from: docs/paper-workflow.md
+            to: AGENTS.md
+    maintainer: yzhao062
+
+  - name: acad-skills
+    description: >
+      Active skill pack for academic-writing tasks. Bundles three skills:
+      bibref-filler (BibTeX completion + citation verification),
+      dual-pass-workflow (paper-draft two-pass review-revise loop),
+      figure-prompt-builder (figure-prompt scaffolding with reference bank).
+      Active-kind remote fetch is queued for anywhere-agents v0.5.0;
+      until then the skills are visible in this repo but not loadable
+      via the consumer-side bootstrap path.
+    source:
+      repo: https://github.com/yzhao062/agent-pack
+      ref: main   # development ref; consumers should pin a tag (e.g. v0.1.0) once published
+    update_policy: locked
+    hosts: [claude-code]
+    active:
+      - kind: skill
+        files:
+          - from: skills/bibref-filler/
+            to: .claude/skills/bibref-filler/
+      - kind: skill
+        files:
+          - from: skills/dual-pass-workflow/
+            to: .claude/skills/dual-pass-workflow/
+      - kind: skill
+        files:
+          - from: skills/figure-prompt-builder/
+            to: .claude/skills/figure-prompt-builder/
+    maintainer: yzhao062
