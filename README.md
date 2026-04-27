@@ -24,7 +24,7 @@ A public, fork-friendly pack repo: real content the maintainer uses on every pro
 |---|---|---|---|
 | `profile` | Passive (rule pack) | ✅ Loadable today | Loads the maintainer's profile (research focus, public projects, communication preferences, tools, conventions) into the consumer `AGENTS.md` so any agent gets the context on session start |
 | `paper-workflow` | Passive (rule pack) | ✅ Loadable today | Loads paper / proposal conventions into the consumer `AGENTS.md`: submodule push and pull etiquette, Overleaf merge-conflict resolution rules, NSF / NIH framework defaults. Apply on academic repos, skip on prototype / OSS repos |
-| `acad-skills` | Active (skill pack) | ⏳ Queued for `anywhere-agents` v0.5.0 | Will install three academic-writing skills (`bibref-filler`, `dual-pass-workflow`, `figure-prompt-builder`) into `.claude/skills/`. The skill files are present in this repo today; the consumer-side remote-fetch wiring lands in `anywhere-agents` v0.5.0 |
+| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs three academic-writing skills (`bibref-filler`, `dual-pass-workflow`, `figure-prompt-builder`) into `.claude/skills/`. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
 
 The repo doubles as a clean reference: the structure is what every third-party pack should look like.
 
@@ -41,15 +41,25 @@ Use one of these paths for v0.4.0:
 
 ### After `anywhere-agents` v0.5.0
 
-When v0.5.0 adds remote pack discovery and the active-kind auth chain, install directly from this repo with a release tag:
+v0.5.0 added direct-URL pack discovery and the 4-method auth chain (SSH → gh CLI → `GITHUB_TOKEN` → anonymous), so installing directly from this repo is a one-line command:
 
 ```bash
 anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0
 ```
 
-Re-run bootstrap. The composer reads `pack.yaml`, fetches the requested packs, and composes passive bodies into `AGENTS.md` plus installs active skills under `.claude/skills/`. No fork required.
+Re-run bootstrap. The composer reads `pack.yaml`, fetches the three packs declared there (`profile`, `paper-workflow`, `acad-skills`), composes the passive bodies into `AGENTS.md`, and installs the active skills under `.claude/skills/`. No fork required.
 
-Pin a tag rather than `main` for production projects. `update_policy: locked` in `pack.yaml` reinforces that consumers should not float `main`.
+Install a subset by passing `--pack <name>` once per pack to install:
+
+```bash
+# profile only (general dev / OSS projects)
+anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0 --pack profile
+
+# profile + paper-workflow (revision-phase paper repos that do not need acad-skills yet)
+anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0 --pack profile --pack paper-workflow
+```
+
+Default `update_policy` is `prompt` in v0.5.0: each bootstrap surfaces upstream drift via a banner and asks before applying. Set `ANYWHERE_AGENTS_UPDATE=apply` for non-interactive refresh, or pin `update_policy: locked` per-entry in `agent-config.yaml` for packs that must never auto-refresh.
 
 ### Ref strategy
 
@@ -62,13 +72,13 @@ A reference matrix for which packs to load on which kinds of project:
 | Project type | `profile` | `paper-workflow` | `acad-skills` |
 |---|---|---|---|
 | General dev / OSS | ✅ | — | — |
-| Solo paper, no Overleaf | ✅ | — | ✅ (v0.5.0+) |
-| Co-PI paper with Overleaf | ✅ | ✅ | ✅ (v0.5.0+) |
+| Solo paper, no Overleaf | ✅ | — | ✅ |
+| Co-PI paper with Overleaf | ✅ | ✅ | ✅ |
 | Submitted paper, revision phase only | ✅ | ✅ | — |
-| Funding proposal | ✅ | ✅ | ✅ (v0.5.0+) |
+| Funding proposal | ✅ | ✅ | ✅ |
 
 > [!NOTE]
-> v0.4.0 can use the passive Markdown bodies in this repo only by copying them into local instructions or by registering the packs in a bootstrap manifest you control. Direct third-party source-URL discovery and active remote skill installation are queued for `anywhere-agents` v0.5.0, when `anywhere-agents pack add` reads this repo's `pack.yaml` directly and the auth chain handles fetches.
+> Active skill installation requires `anywhere-agents` v0.5.0+, which added direct-URL pack discovery and the 4-method auth chain. Consumers still on v0.4.0 can use the passive bodies (`profile`, `paper-workflow`) by copying them into local instructions or by registering the packs in a bootstrap manifest they control; the active `acad-skills` pack is loadable only on v0.5.0+.
 
 ## Fork to Make Your Own
 
@@ -90,7 +100,7 @@ agent-pack/
 ├── docs/
 │   ├── rule-pack.md           # `profile` pack body (passive)
 │   └── paper-workflow.md      # `paper-workflow` pack body (passive)
-├── skills/                    # `acad-skills` pack content (active, v0.5.0)
+├── skills/                    # `acad-skills` pack content (active)
 │   ├── bibref-filler/
 │   ├── dual-pass-workflow/
 │   └── figure-prompt-builder/
@@ -106,8 +116,8 @@ agent-pack/
 
 ## Roadmap
 
-- **v0.1.0** *(this release)*: `profile` and `paper-workflow` passive bodies are ready for v0.4.0 reuse by copying into `AGENTS.local.md` or by registering them in a bootstrap manifest you control (e.g., a fork of `anywhere-agents`). `acad-skills` is declared in `pack.yaml` with skill files present, awaiting `anywhere-agents` v0.5.0 for consumer-side remote activation.
-- **v0.2.0** *(coordinated with `anywhere-agents` v0.5.0)*: same content, new tag. With v0.5.0's active-kind remote fetch wired, `anywhere-agents pack add https://github.com/yzhao062/agent-pack` installs all three packs (consumer chooses which to keep). No content change required in this repo; the existing manifest works as-is.
+- **v0.1.0** *(this release; the `anywhere-agents` v0.5.0 acceptance-test target)*: `profile`, `paper-workflow`, and `acad-skills` are all loadable via `anywhere-agents` v0.5.0's direct-URL `pack add`. Consumers run `anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0` to install all three; `--pack <name>` filters to a subset. v0.4.0 consumers can still reuse the two passive bodies by copying them into `AGENTS.local.md` or by registering the packs in a bootstrap manifest they control.
+- **v0.2.0+**: content refresh as the maintainer's profile and paper-workflow conventions evolve. Tag and content change; manifest structure stays stable.
 - **Later**: additional domain packs as the maintainer's workflow expands. Each new pack is a new entry in `pack.yaml`; the structure stays stable.
 
 ## License
