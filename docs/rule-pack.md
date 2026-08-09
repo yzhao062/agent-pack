@@ -27,7 +27,7 @@ override these defaults when they conflict.
 
 ## Public projects
 
-- [PyOD](https://github.com/yzhao062/pyod): Python anomaly detection library. Around 9.8k GitHub stars, 38M+ total downloads, ~12k research citations.
+- [PyOD](https://github.com/yzhao062/pyod): Python anomaly detection library. Around 10k GitHub stars, 55M+ total downloads, ~12k research citations.
 - [PyGOD](https://github.com/pygod-team/pygod): graph outlier detection library, sister project to PyOD.
 - [anywhere-agents](https://github.com/yzhao062/anywhere-agents): public AI agent configuration with pack architecture.
 - [agent-style](https://github.com/yzhao062/agent-style): writing rule pack covering AI-tell vocabulary, formatting, and field-observed LLM patterns.
