@@ -55,12 +55,14 @@ packs:
 
   - name: acad-skills
     description: >
-      Active skill pack for academic-writing tasks. Bundles four skills:
+      Active skill pack for academic-writing tasks. Bundles five skills:
       bibref-filler (BibTeX completion for new citations during drafting),
       bibref-verify (pre-submission audit of existing .bib for hallucinated
       citations or stale metadata; companion to bibref-filler),
       dual-pass-workflow (paper-draft two-pass review-revise loop),
-      figure-prompt-builder (figure-prompt scaffolding with reference bank).
+      figure-prompt-builder (figure-prompt scaffolding with reference bank),
+      figure-candidate-gallery (batch-renders candidate small figures to one
+      contact sheet so the author can cherry-pick; needs /workflows).
       Loadable via anywhere-agents v0.5.0+ remote pack consumption; copies
       each skill to .claude/skills/<name>/ in the consumer repo.
     source:
@@ -88,4 +90,9 @@ packs:
         files:
           - from: skills/figure-prompt-builder/
             to: .claude/skills/figure-prompt-builder/
+      - kind: skill
+        required: false
+        files:
+          - from: skills/figure-candidate-gallery/
+            to: .claude/skills/figure-candidate-gallery/
     maintainer: yzhao062

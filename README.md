@@ -24,7 +24,7 @@ A public, fork-friendly pack repo: real content the maintainer uses on every pro
 |---|---|---|---|
 | `profile` | Passive (rule pack) | ✅ Loadable today | Loads the maintainer's profile (research focus, public projects, communication preferences, tools, conventions) into the consumer `AGENTS.md` so any agent gets the context on session start |
 | `paper-workflow` | Passive (rule pack) | ✅ Loadable today | Loads paper / proposal conventions into the consumer `AGENTS.md`: submodule push and pull etiquette, Overleaf merge-conflict resolution rules, NSF / NIH framework defaults. Apply on academic repos, skip on prototype / OSS repos |
-| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs four academic-writing skills (`bibref-filler`, `bibref-verify`, `dual-pass-workflow`, `figure-prompt-builder`) into `.claude/skills/`. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
+| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs five academic-writing skills (`bibref-filler`, `bibref-verify`, `dual-pass-workflow`, `figure-prompt-builder`, `figure-candidate-gallery`) into `.claude/skills/`. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
 
 The repo doubles as a clean reference: the structure is what every third-party pack should look like.
 
@@ -104,6 +104,7 @@ agent-pack/
 │   ├── bibref-filler/
 │   ├── bibref-verify/
 │   ├── dual-pass-workflow/
+│   ├── figure-candidate-gallery/
 │   └── figure-prompt-builder/
 ├── scripts/
 │   └── validate.py            # validates pack.yaml against the v2 schema
