@@ -3,12 +3,10 @@
 <!--
 Personal profile rule pack for Yue Zhao (yzhao062).
 
-This file is composed as passive content into a consumer project's
-AGENTS.md by the anywhere-agents bootstrap when the consumer references
-this pack in agent-config.yaml. Any agent reading AGENTS.md
-(Claude Code, Codex, others) gets this profile on session start.
-
-Mirrors RULES.md / a single source of truth for the profile pack.
+Full reference for the profile pack. pack.yaml composes the compact
+variant, docs/rule-pack-compact.md, into a consumer project's AGENTS.md;
+the compact file keeps every rule here and drops the statistics and the
+focus snapshot. Edit a rule in both files.
 -->
 
 # User Profile (yzhao062)

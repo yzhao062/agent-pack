@@ -33,7 +33,10 @@ packs:
       ref: main   # development ref; consumers should pin a tag (e.g. v0.1.0) once published
     passive:
       - files:
-          - from: docs/rule-pack.md
+          # The compact body is what consumers compose; docs/rule-pack.md
+          # is the full reference (anywhere-agents v0.5.7 made the same
+          # switch for agent-style).
+          - from: docs/rule-pack-compact.md
             to: AGENTS.md
     maintainer: yzhao062
 
@@ -49,7 +52,7 @@ packs:
       ref: main   # development ref; consumers should pin a tag (e.g. v0.1.0) once published
     passive:
       - files:
-          - from: docs/paper-workflow.md
+          - from: docs/paper-workflow-compact.md
             to: AGENTS.md
     maintainer: yzhao062
 

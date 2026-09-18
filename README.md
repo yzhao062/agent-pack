@@ -36,7 +36,7 @@ The passive pack bodies in this repo are usable today, but stock `anywhere-agent
 
 Use one of these paths for v0.4.0:
 
-1. **Manual copy** (simplest). Copy the relevant passive sections from `docs/rule-pack.md` and `docs/paper-workflow.md` into the consumer repo's `AGENTS.local.md`. The local override is hand-authored and never overwritten by bootstrap, so the content stays put across upstream syncs.
+1. **Manual copy** (simplest). Copy the relevant passive sections from `docs/rule-pack-compact.md` and `docs/paper-workflow-compact.md` (or the full `docs/rule-pack.md` and `docs/paper-workflow.md`) into the consumer repo's `AGENTS.local.md`. The local override is hand-authored and never overwritten by bootstrap, so the content stays put across upstream syncs.
 2. **Fork the bootstrap manifest** (reusable). Fork `anywhere-agents`, add entries for `profile` and `paper-workflow` to your fork's `bootstrap/packs.yaml` pointing at this repo's `source.repo`, and have consumer projects bootstrap from your fork (`AGENT_CONFIG_UPSTREAM=<your-fork>`). Then `agent-config.yaml` `rule_packs:` can list the registered names and the composer resolves them via the manifest.
 
 ### After `anywhere-agents` v0.5.0
@@ -85,7 +85,7 @@ A reference matrix for which packs to load on which kinds of project:
 This repo is structured to be forked and replaced.
 
 1. **Fork** this repo to your GitHub account.
-2. **Replace** `docs/rule-pack.md` with your own profile (research interests, projects, preferences, conventions). Optionally replace or remove `docs/paper-workflow.md` if you do not write papers.
+2. **Replace** `docs/rule-pack-compact.md` with your own profile (research interests, projects, preferences, conventions); `pack.yaml` composes that file, and `docs/rule-pack.md` is the longer reference you may drop. Optionally replace or remove the two `paper-workflow` files if you do not write papers.
 3. **Update** `pack.yaml`: rename packs to disambiguate (e.g. `profile` → `<your-handle>-profile` if you also load this upstream version), point `source.repo` at your fork.
 4. **Tag a release** (`v0.1.0`) so consumers can pin.
 5. **Use your fork** through the same split described in [Consumer Setup](#consumer-setup): for v0.4.0, copy the passive bodies into the consumer's `AGENTS.local.md` or register your fork's pack names in a bootstrap manifest you control; for v0.5.0+, run `anywhere-agents pack add https://github.com/<you>/<repo> --ref v0.1.0`.
@@ -98,8 +98,10 @@ The whole repo is small. Pack authoring is roughly a 30-minute task once you kno
 agent-pack/
 ├── pack.yaml                  # self-describing manifest (v2 schema)
 ├── docs/
-│   ├── rule-pack.md           # `profile` pack body (passive)
-│   └── paper-workflow.md      # `paper-workflow` pack body (passive)
+│   ├── rule-pack-compact.md       # `profile` pack body (passive, composed)
+│   ├── rule-pack.md               # `profile` full reference
+│   ├── paper-workflow-compact.md  # `paper-workflow` pack body (passive, composed)
+│   └── paper-workflow.md          # `paper-workflow` full reference
 ├── skills/                    # `acad-skills` pack content (active)
 │   ├── bibref-filler/
 │   ├── bibref-verify/
@@ -127,7 +129,7 @@ agent-pack/
 The repo carries two licenses, one for code and one for the passive pack bodies, so forks can reuse the prose under attribution-preserving terms while the code remains under a permissive software license.
 
 - **Code, configuration, manifests** (`pack.yaml`, `scripts/`, `.github/`, `validate.py`, etc.): Apache License 2.0. See [LICENSE](LICENSE).
-- **Passive pack bodies** (`docs/rule-pack.md`, `docs/paper-workflow.md`, and any future `docs/*.md` pack body): CC-BY-4.0. See [LICENSES/CC-BY-4.0.txt](LICENSES/CC-BY-4.0.txt). SPDX header in each file declares the license; full legal text at <https://creativecommons.org/licenses/by/4.0/legalcode>.
+- **Passive pack bodies** (`docs/rule-pack-compact.md`, `docs/paper-workflow-compact.md`, their full references `docs/rule-pack.md` and `docs/paper-workflow.md`, and any future `docs/*.md` pack body): CC-BY-4.0. See [LICENSES/CC-BY-4.0.txt](LICENSES/CC-BY-4.0.txt). SPDX header in each file declares the license; full legal text at <https://creativecommons.org/licenses/by/4.0/legalcode>.
 
 If you fork this repo as a starting point for your own pack, you may keep both licenses or replace either with your own choice. The CC-BY-4.0 attribution requirement applies only if you keep the upstream prose; if you fully replace `docs/rule-pack.md` and `docs/paper-workflow.md` with your own writing, that writing is yours to license however you want.
 

@@ -1,10 +1,11 @@
 <!-- SPDX-License-Identifier: CC-BY-4.0 -->
 
 <!--
-Paper-workflow rule pack: conventions for paper / proposal repos that
-use Overleaf submodules and co-PI collaboration. Composed as passive
-content into the consumer AGENTS.md by anywhere-agents bootstrap
-when the consumer references this pack in agent-config.yaml.
+Paper-workflow rule pack, full reference: conventions for paper and
+proposal repos that use Overleaf submodules and co-PI collaboration.
+pack.yaml composes the compact variant, docs/paper-workflow-compact.md,
+into the consumer AGENTS.md; it keeps every rule here and drops the
+background prose. Edit a rule in both files.
 
 Load this pack on paper / proposal repos. Skip on prototype / OSS repos.
 -->
