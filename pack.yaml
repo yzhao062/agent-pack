@@ -67,11 +67,13 @@ packs:
       figure-candidate-gallery (batch-renders candidate small figures to one
       contact sheet so the author can cherry-pick; needs /workflows).
       Loadable via anywhere-agents v0.5.0+ remote pack consumption; copies
-      each skill to .claude/skills/<name>/ in the consumer repo.
+      each skill to .claude/skills/<name>/ in the consumer repo. Declaring
+      codex lets anywhere-agents link each skill under .agents/skills/ on
+      macOS and Linux, where Codex discovers repository skills.
     source:
       repo: https://github.com/yzhao062/agent-pack
       ref: main   # development ref; consumers should pin a tag (e.g. v0.1.0) once published
-    hosts: [claude-code]
+    hosts: [claude-code, codex]
     active:
       - kind: skill
         required: false
