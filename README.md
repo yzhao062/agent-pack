@@ -24,7 +24,7 @@ A public, fork-friendly pack repo: real content the maintainer uses on every pro
 |---|---|---|---|
 | `profile` | Passive (rule pack) | ✅ Loadable today | Loads the maintainer's profile (research focus, public projects, communication preferences, tools, conventions) into the consumer `AGENTS.md` so any agent gets the context on session start |
 | `paper-workflow` | Passive (rule pack) | ✅ Loadable today | Loads paper / proposal conventions into the consumer `AGENTS.md`: submodule push and pull etiquette, Overleaf merge-conflict resolution rules, NSF / NIH framework defaults. Apply on academic repos, skip on prototype / OSS repos |
-| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs five academic-writing skills (`bibref-filler`, `bibref-verify`, `dual-pass-workflow`, `figure-prompt-builder`, `figure-candidate-gallery`) into `.claude/skills/`; on macOS and Linux, `anywhere-agents` also links them under `.agents/skills/` for Codex. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
+| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs five academic-writing skills (`bibref-filler`, `bibref-verify`, `figure-prompt-builder`, `figure-candidate-gallery`, `venue-review-panel`) into `.claude/skills/`; on macOS and Linux, `anywhere-agents` also links them under `.agents/skills/` for Codex. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
 
 The repo doubles as a clean reference: the structure is what every third-party pack should look like.
 
@@ -44,7 +44,7 @@ Use one of these paths for v0.4.0:
 v0.5.0 added direct-URL pack discovery and the 4-method auth chain (SSH → gh CLI → `GITHUB_TOKEN` → anonymous), so installing directly from this repo is a one-line command:
 
 ```bash
-anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0
+anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref main
 ```
 
 Re-run bootstrap. The composer reads `pack.yaml`, fetches the three packs declared there (`profile`, `paper-workflow`, `acad-skills`), composes the passive bodies into `AGENTS.md`, and installs the active skills under `.claude/skills/`. No fork required.
@@ -53,10 +53,10 @@ Install a subset by passing `--pack <name>` once per pack to install:
 
 ```bash
 # profile only (general dev / OSS projects)
-anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0 --pack profile
+anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref main --pack profile
 
 # profile + paper-workflow (revision-phase paper repos that do not need acad-skills yet)
-anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref v0.1.0 --pack profile --pack paper-workflow
+anywhere-agents pack add https://github.com/yzhao062/agent-pack --ref main --pack profile --pack paper-workflow
 ```
 
 Default `update_policy` is `prompt` in v0.5.0: each bootstrap surfaces upstream drift via a banner and asks before applying. Set `ANYWHERE_AGENTS_UPDATE=apply` for non-interactive refresh, or pin `update_policy: locked` per-entry in `agent-config.yaml` for packs that must never auto-refresh.
@@ -105,9 +105,9 @@ agent-pack/
 ├── skills/                    # `acad-skills` pack content (active)
 │   ├── bibref-filler/
 │   ├── bibref-verify/
-│   ├── dual-pass-workflow/
 │   ├── figure-candidate-gallery/
-│   └── figure-prompt-builder/
+│   ├── figure-prompt-builder/
+│   └── venue-review-panel/
 ├── scripts/
 │   └── validate.py            # validates pack.yaml against the v2 schema
 ├── .github/workflows/

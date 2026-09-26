@@ -12,6 +12,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Review scratch files from /implement-review skill
-Review-*.md
+# Review scratch files from /implement-review skill (repo root only)
+/Review-*.md
 CodexReview.md

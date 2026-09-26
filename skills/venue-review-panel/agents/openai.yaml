@@ -1,0 +1,6 @@
+interface:
+  display_name: "Venue Review Panel"
+  short_description: "Three-agent venue-calibrated paper review"
+  default_prompt: "Use $venue-review-panel to review this paper for ICLR and create the final English report."
+policy:
+  allow_implicit_invocation: true
