@@ -32,8 +32,9 @@ Structure that prompt in this order:
 4. required layout
 5. required semantic elements
 6. required arrows or dependencies
-7. visual-quality requirements
-8. output-quality requirements
+7. selected style-reference images and qualities to transfer or avoid
+8. visual-quality requirements
+9. output-quality requirements
 
 Do not include repo-only instructions such as:
 
@@ -94,6 +95,9 @@ Required elements:
 Required arrows or dependencies:
 - ...
 
+Style references:
+[Primary aesthetic specification: attach selected gallery images when supported. Name the confirmed qualities to imitate, their concrete treatment here, and the details to avoid. For Yue Zhao, this mapping takes priority over generic visual defaults below; retain relevant technical detail, formulas, 3D objects, and domain imagery.]
+
 Visual quality requirements:
 - infer the correct scientific figure type from the context
 - prioritize only semantically central elements
@@ -107,7 +111,7 @@ Visual quality requirements:
 Output quality requirements:
 - large readable labels
 - minimal decorative clutter
-- avoid photorealism
+- avoid photorealism unless a selected reference or confirmed preference calls for a realistic domain scene
 - avoid dense tiny text
 - keep the image clear at the intended final size
 ```

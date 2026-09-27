@@ -40,8 +40,13 @@ Write prompts in this order:
 4. `layout`
 5. `required elements`
 6. `required arrows or dependencies`
-7. `visual quality requirements`
-8. `output quality requirements`
+7. `selected style-reference images and qualities to transfer or avoid`
+8. `visual quality requirements`
+9. `output quality requirements`
+
+## Preference precedence
+
+For Yue Zhao's paper and proposal figures, the selected gallery images and the concrete qualities to imitate are the primary aesthetic specification. Carry the reference-to-design mapping into the copied prompt, including exclusions such as gallery 15's heavy colors. The defaults below apply only where that mapping leaves a choice open. Keep approved technical detail, formulas, meaningful 3D objects, and real-world imagery; reserve native text regions if a generator cannot render them reliably. Do not replace the selected aesthetic with a generic prestige anchor.
 
 ## Visual Requirements To Reuse
 
@@ -67,11 +72,11 @@ These are strong default requirements for polished scientific figures:
 - large readable labels
 - no tiny dense paragraph text
 - minimal decorative clutter
-- no glossy 3D effects
+- avoid decorative glossy 3D effects; retain meaningful 3D treatment supported by a selected reference
 - no marketing infographic tone
 - no dashboard styling
 - no startup pitch-deck aesthetics
-- no cartoonish icons or robot imagery unless explicitly required
+- use cartoon or robot imagery only when it serves the content and the selected preference mapping
 
 ## Text Density Rule
 
