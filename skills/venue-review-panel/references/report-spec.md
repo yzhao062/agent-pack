@@ -22,17 +22,19 @@ Create a polished English report when requested explicitly or when the user asks
 8. Technical audit.
 9. Reviewer-specific assessments.
 10. Interpretation of reviewer disagreement.
-11. Priority list for improving the score.
-12. Score-change scenarios.
-13. Questions for the authors.
-14. Final recommendation.
-15. Venue standard and reference context.
+11. Chinese-model guardrail: verified red flags, a statement that none qualified, or the skip reason.
+12. Priority list for improving the score.
+13. Score-change scenarios.
+14. Questions for the authors.
+15. Final recommendation.
+16. Venue standard and reference context.
 
 Use tables for repeated comparisons and priorities, but keep analytical reasoning in prose. The document should lead with the decision and remain readable without the raw review files.
 
 ## Report content rules
 
 - Preserve each reviewer's raw score and confidence.
+- Keep Chinese-model guardrail scores and findings in the guardrail section. The panel findings, calibrated score, and priority list are final before guardrail triage.
 - Label the calibrated score as the panel or area-chair-style judgment.
 - State why reviewers disagree, not only that they disagree.
 - Rank recommendations by expected score impact.
