@@ -26,7 +26,7 @@ Each raw review should contain these sections:
 4. Major weaknesses ranked by decision impact, with section, table, figure, or page anchors.
 5. Minor weaknesses and presentation issues.
 6. Technical audit of estimands, controls, statistical units, uncertainty, multiplicity, leakage or selection, sensitivity, and claim boundaries.
-7. Novelty and significance relative to the closest work.
+7. Novelty and significance relative to the closest work, including any supported contribution the manuscript states too weakly for a reader to see.
 8. Questions whose answers could change the score.
 9. Prioritized score-improvement list, divided into existing-artifact analyses and substantial new experiments.
 
@@ -58,5 +58,7 @@ For each finding, record:
 | Decision impact | High, medium, or low |
 | Remedy class | Existing artifacts, modest rerun, substantial experiment, or framing |
 | Panel action | Adopt, qualify, or reject |
+
+When the remedy class is framing, scope the claim in place or move a general limitation to the Limitations section, and add no caveat sentences to the results.
 
 When reviewers disagree on severity, preserve both positions and explain the calibration. Do not resolve disagreement by counting votes alone.
