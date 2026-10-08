@@ -24,7 +24,7 @@ Each raw review should contain these sections:
 2. Overall score, recommendation, and confidence.
 3. Major strengths.
 4. Major weaknesses ranked by decision impact, with section, table, figure, or page anchors.
-5. Minor weaknesses and presentation issues.
+5. Minor weaknesses and presentation issues, including material that buries the main line: defenses no retained claim needs, or process history that supports no retained claim.
 6. Technical audit of estimands, controls, statistical units, uncertainty, multiplicity, leakage or selection, sensitivity, and claim boundaries.
 7. Novelty and significance relative to the closest work, including any supported contribution the manuscript states too weakly for a reader to see.
 8. Questions whose answers could change the score.
@@ -36,7 +36,7 @@ For every major weakness, require:
 - what the current evidence establishes;
 - what remains unresolved;
 - why that gap affects the venue score;
-- the smallest analysis or experiment that would resolve it.
+- the smallest analysis, experiment, or rewrite that would resolve it. Prefer rewriting, moving, or cutting existing material; a requested addition names the claim that lacks evidence or the result a reader cannot follow.
 
 ## Scoring discipline
 
