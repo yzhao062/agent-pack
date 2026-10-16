@@ -1,13 +1,13 @@
 <!-- SPDX-License-Identifier: CC-BY-4.0 -->
 
 <!--
-Compact paper-workflow pack: submodule, Overleaf merge, and venue rules
-for paper and proposal repos. docs/paper-workflow.md is the full reference.
+Compact paper-workflow pack: submodule, Overleaf merge, venue, and
+revision rules for paper and proposal repos. docs/paper-workflow.md is the full reference.
 -->
 
 # Paper and Proposal Workflow
 
-Apply these rules when the project is a paper or proposal with a `.gitmodules` file or an Overleaf-synced subdirectory; skip them on prototype and OSS repos.
+The submodule and Overleaf rules apply when the project has a `.gitmodules` file or an Overleaf-synced subdirectory; the venue and revision rules apply to any paper or proposal. Skip them all on prototype and OSS repos.
 
 ## Submodule Workflow
 
@@ -49,3 +49,10 @@ Restore our structural version with `git restore --source=<pre-merge-commit> --w
 ## Venue Conventions
 
 For NSF and federal proposals, do not introduce DEI-related terms unless the solicitation explicitly requires them; a non-federal call that asks for DEI framing gets it. NSF Merit Review framework by default (intellectual merit and broader impacts); NIH Simplified Peer Review on biomedical proposals. For papers, follow the venue's own guidelines (NeurIPS, ICML, ICLR, KDD, ACL, EMNLP, CVPR), and generate venue-specific formatting (camera-ready, anonymous version) only when asked.
+
+## Revision Discipline
+
+1. **Filter every revision through the story.** The author sets a one-sentence thesis and the headline claims, recorded in the project's README or plan file. A change enters the manuscript only if it changes a headline claim, helps a reader follow or check one, corrects an error, meets a venue requirement, or cuts. Triage a reviewer's or panel's list against the thesis instead of working through it item by item. The rest goes to the project's records, such as review notes or a plan file.
+2. **Answer findings in place.** Rewrite, move, or cut what a finding names. A sentence that answers an objection no reader raised, recounts the project's path to a result, or reports a small negative result off the main line belongs in the records. Main-text length grows only for a new result or for what a reader needs to follow or check a retained claim.
+3. **Report the trend.** State the main pattern and how widely it holds. Report a statistical test only where the claim depends on it, and qualify a claim only where the qualifier changes what the reader concludes.
+4. **Change direction only on purpose.** Run an experiment only if it can change a headline claim or a main table row. Before a finding narrows or reframes the story, state what it cuts from the goal and ask the author. Once AI panel scores stop moving, the next readers are people.

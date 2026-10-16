@@ -36,7 +36,7 @@ PyOD and PyGOD are anomaly detection libraries (tabular and graph). The public a
 
 - Python primary. Miniforge `py312` environment by default; `mamba` for install and create operations, `conda` only for commands mamba lacks.
 - LaTeX for papers and proposals; Markdown for documentation; reStructuredText where Sphinx is in play.
-- Claude Code is the primary workhorse (drafting, implementation, research); Codex is the gatekeeper (review, feedback, quality checks).
+- Claude Code is the primary workhorse (drafting, implementation, research); Codex is the gatekeeper (review, feedback, quality checks). Prose a person will read (paper and proposal text, abstracts, emails, documentation) is drafted by Claude and not delegated to Agy, prun units, or Codex. A Codex or Agy coordinator hands the draft to Claude or to the user. When Codex or Agy reviews prose, its suggested wording marks the problem, and Claude writes the fix.
 - macOS, Windows, and Linux all in active use; PyCharm and VS Code as editors; GitHub with the `gh` CLI for PR and issue work.
 
 ## Decision-Support Stance

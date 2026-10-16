@@ -2,19 +2,21 @@
 
 <!--
 Paper-workflow rule pack, full reference: conventions for paper and
-proposal repos that use Overleaf submodules and co-PI collaboration.
+proposal repos, covering Overleaf submodules, co-PI merges, venues,
+and revision discipline.
 pack.yaml composes the compact variant, docs/paper-workflow-compact.md,
 into the consumer AGENTS.md; it keeps every rule here and drops the
 background prose. Edit a rule in both files.
 
-Load this pack on paper / proposal repos. Skip on prototype / OSS repos.
+Load this pack on any paper or proposal repo, with or without
+Overleaf. Skip on prototype / OSS repos.
 -->
 
 # Paper and Proposal Workflow
 
-Conventions for academic-writing repos that use Overleaf submodules and
-co-PI collaboration. Apply when the project is a paper or proposal with
-a `.gitmodules` file or an Overleaf-synced subdirectory.
+Conventions for academic-writing repos. The submodule and Overleaf rules
+apply when the project has a `.gitmodules` file or an Overleaf-synced
+subdirectory; the venue and revision rules apply to any paper or proposal.
 
 ## Submodule Workflow
 
@@ -70,3 +72,12 @@ For NSF / federal proposal work, do not introduce DEI-related terms unless the s
 NSF Merit Review framework defaults: intellectual merit + broader impacts. NIH Simplified Peer Review framework on biomedical proposals.
 
 For paper venues, follow the venue's specific guidelines (NeurIPS / ICML / ICLR / KDD / ACL / EMNLP / CVPR). Do not generate venue-specific formatting (camera-ready, anonymous-version, etc.) unless asked.
+
+## Revision Discipline
+
+Multi-round review pulls a paper away from its story. Each round answers its findings by adding material: a defense against a possible objection, a qualifier, a small negative result, a note on how a number was reached. No single addition looks wrong, and nobody owns the total. One paper grew from 46 to 80 pages over its panel rounds before a dedicated trim cut it to 31, and its main line had blurred on the way. These rules apply to every paper or proposal revision, with or without Overleaf.
+
+1. **Filter every revision through the story.** The author sets a one-sentence thesis and the headline claims, recorded in the project's README or plan file. A change enters the manuscript only if it changes a headline claim, helps a reader follow or check one, corrects an error, meets a venue requirement, or cuts. Triage a reviewer's or panel's list against the thesis instead of working through it item by item. The rest goes to the project's records, such as review notes or a plan file.
+2. **Answer findings in place.** Rewrite, move, or cut what a finding names. A sentence that answers an objection no reader raised, recounts the project's path to a result, or reports a small negative result off the main line belongs in the records. Main-text length grows only for a new result or for what a reader needs to follow or check a retained claim.
+3. **Report the trend.** State the main pattern and how widely it holds. Report a statistical test only where the claim depends on it, and qualify a claim only where the qualifier changes what the reader concludes.
+4. **Change direction only on purpose.** Run an experiment only if it can change a headline claim or a main table row. Before a finding narrows or reframes the story, state what it cuts from the goal and ask the author. Once AI panel scores stop moving, the next readers are people.

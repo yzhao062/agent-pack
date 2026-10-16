@@ -42,10 +42,11 @@ packs:
 
   - name: paper-workflow
     description: >
-      Conventions for paper / proposal repos that use Overleaf submodules
-      and co-PI collaboration. Submodule push / pull etiquette, Overleaf
-      merge-conflict resolution rules, NSF / NIH framework defaults, and
-      venue conventions. Load on academic-writing repos; skip on
+      Conventions for paper / proposal repos. Repos that sync with
+      Overleaf get submodule push / pull etiquette and merge-conflict
+      rules. Any paper or proposal gets NSF / NIH framework defaults,
+      venue conventions, and revision discipline (filter revisions
+      through the paper's story). Load on academic-writing repos; skip on
       prototype / OSS repos.
     source:
       repo: https://github.com/yzhao062/agent-pack

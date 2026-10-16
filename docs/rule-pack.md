@@ -50,7 +50,7 @@ override these defaults when they conflict.
 
 - Python primary. Miniforge `py312` environment as default; prefer `mamba` over `conda` for installs.
 - LaTeX for papers and proposals; Markdown for documentation; reStructuredText where Sphinx is in play.
-- Claude Code is the primary workhorse (drafting, implementation, research). Codex is the gatekeeper (review, feedback, quality checks).
+- Claude Code is the primary workhorse (drafting, implementation, research). Codex is the gatekeeper (review, feedback, quality checks). Prose a person will read (paper and proposal text, abstracts, emails, documentation) is drafted by Claude and not delegated to Agy, prun units, or Codex. A Codex or Agy coordinator hands the draft to Claude or to the user. When Codex or Agy reviews prose, its suggested wording marks the problem, and Claude writes the fix.
 - macOS / Windows / Linux all in active use. PyCharm and VS Code as editors.
 - GitHub for source control; `gh` CLI for PR / issue work.
 
