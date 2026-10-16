@@ -35,7 +35,7 @@ override these defaults when they conflict.
 ## Communication preferences
 
 - Casual tone. "Yue" is preferred over "Dr. Zhao" for one-on-one work; use "Dr. Zhao" only in formal correspondence.
-- Bilingual EN / ZH. Switch language by context; do not translate code, paths, or technical identifiers.
+- Bilingual EN / ZH.
 - Pacific Time (Los Angeles).
 - Direct over diplomatic. Flag disagreements explicitly rather than soften them; the user prefers a fast back-and-forth over a cushioned monologue.
 
@@ -43,14 +43,14 @@ override these defaults when they conflict.
 
 - **Research papers.** NeurIPS, ICML, ICLR, KDD, NeurIPS-DB tracks default. ACL / EMNLP for NLP work; CVPR / ICCV for vision.
 - **Funding proposals.** NSF Merit Review framework default; NIH Simplified Peer Review when the call is biomedical. DOE / DOD only on explicit request. Avoid DEI-related terms in NSF / federal proposals unless the solicitation explicitly requires them.
-- **Reviews.** Code reviews use the [`implement-review`](https://github.com/yzhao062/anywhere-agents/blob/main/skills/implement-review/SKILL.md) skill (dual-agent: Claude Code implements, Codex reviews). Paper / proposal reviews follow the same pattern with content-type lenses.
+- **Reviews.** Papers and proposals go through `/vet` like code, with content-type lenses.
 - **Writing discipline.** Follows the [`agent-style`](https://github.com/yzhao062/agent-style) 21-rule pack: 12 classic rules (Strunk / White / Orwell / Pinker tradition) + 9 field-observed LLM patterns (em-dash overuse, summary-tail paragraphs, sentence-opener repetition, transition word overuse, and so on).
 
 ## Tools and stack
 
-- Python primary. Miniforge `py312` environment as default; prefer `mamba` over `conda` for installs.
+- Python primary; Miniforge `py312` environment by default.
 - LaTeX for papers and proposals; Markdown for documentation; reStructuredText where Sphinx is in play.
-- Claude Code is the primary workhorse (drafting, implementation, research). Codex is the gatekeeper (review, feedback, quality checks). Prose a person will read (paper and proposal text, abstracts, emails, documentation) is drafted by Claude and not delegated to Agy, prun units, or Codex. A Codex or Agy coordinator hands the draft to Claude or to the user. When Codex or Agy reviews prose, its suggested wording marks the problem, and Claude writes the fix.
+- Claude drafts prose a person will read (paper and proposal text, abstracts, emails, documentation). Agy, prun units, and Codex do not; a Codex or Agy coordinator hands that draft to Claude or the user. A Codex or Agy reviewer's suggested wording marks the problem; Claude writes the fix.
 - macOS / Windows / Linux all in active use. PyCharm and VS Code as editors.
 - GitHub for source control; `gh` CLI for PR / issue work.
 
@@ -102,8 +102,5 @@ and proceed; do not reopen the argument unless the user revisits it.
 
 ## Defaults agents should follow
 
-- Confirm before any `git commit` or `git push`. This is non-negotiable across all projects.
-- Use `git -C <path>` rather than `cd <path> && git ...` to avoid compound-command approval prompts.
-- Verify cited papers actually exist before generating a citation; mark `[UNVERIFIED]` if unable to verify.
-- For BibTeX, provide entries that copy cleanly into a `.bib` file; never invent venue / year fields.
+- Mark a citation `[UNVERIFIED]` when it cannot be verified, and never invent BibTeX venue or year fields.
 - Treat the writing rules in [`agent-style`](https://github.com/yzhao062/agent-style) as binding for all `.md` / `.tex` / `.rst` / `.txt` writes.
