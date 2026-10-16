@@ -45,6 +45,8 @@ Independence is mandatory. Give every route the same neutral prompt, venue rubri
 
 Use direct single-shot CLI, API, or agent channels for manuscript review. Write the neutral brief to a scratch prompt file and save each final response atomically. Do not rely on `implement-review` staged-diff dispatch for a standalone paper. If direct channels are unavailable but the dispatch helpers are the only supported route, first create an isolated temporary git workspace, copy only the manuscript and prompt into it, stage that snapshot, and run the helpers there. Never stage the user's dirty working tree merely to satisfy a reviewer backend.
 
+Keep the external Agy and Codex reviewers on the models their `/vet` routes select, so a model change there reaches the panel with no edit here. For Agy, run `<python> <implement-review>/scripts/dispatch-gemini.py --print-model`, resolving the `implement-review` skill through the skill lookup order. It prints the model slug and the effort, and the Agy call passes them as `--model` and `--effort`. Never launch Agy without `--model`: its own default is the interactive setting, which can be a cheaper model. A failed lookup counts as a failed Agy route under the retry rule below. For Codex, select the model the way `dispatch-codex.sh` does. It takes a nonempty `CODEX_DISPATCH_MODEL` first, then the top-level `model` in `${CODEX_HOME:-$HOME/.codex}/config.toml` when `model_provider` is unset or `openai`, and otherwise the Codex model named in `AGENTS.md`. Pass the result with `-c model=`.
+
 Save all three raw reviews in the task-specific scratch workspace, not at the repository root:
 
 - `Review-Codex.md`
