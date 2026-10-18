@@ -103,4 +103,4 @@ and proceed; do not reopen the argument unless the user revisits it.
 ## Defaults agents should follow
 
 - Mark a citation `[UNVERIFIED]` when it cannot be verified, and never invent BibTeX venue or year fields.
-- Treat the writing rules in [`agent-style`](https://github.com/yzhao062/agent-style) as binding for all `.md` / `.tex` / `.rst` / `.txt` writes.
+- Treat [`agent-style`](https://github.com/yzhao062/agent-style) as binding for all `.md` / `.tex` / `.rst` / `.txt` writes; its House Style is the user's own writing. When the `author-voice` skill (in `acad-skills`) is installed, load it before drafting or revising the abstract, introduction, or conclusion of a paper or proposal; without it, the House Style alone applies.

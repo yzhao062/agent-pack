@@ -1,0 +1,4 @@
+interface:
+  display_name: "Author Voice"
+  short_description: "Draft paper sections in the author's own voice"
+  default_prompt: "Use $author-voice to draft or revise the abstract, introduction, or conclusion in the author's own voice: read the section template and exemplars, draft from the given facts only, run scripts/voice_check.py on the draft, revise the parts it flags where that reads better, and report its summary line."

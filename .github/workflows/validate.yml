@@ -17,3 +17,13 @@ jobs:
         run: pip install pyyaml
       - name: Validate pack.yaml
         run: python scripts/validate.py
+
+  test-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.9'
+      - name: Run skill script tests
+        run: python -m unittest discover -s tests -v
