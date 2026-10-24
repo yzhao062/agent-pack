@@ -55,4 +55,4 @@ Loop control: after plan-review or several rounds on the same point, challenge o
 ## Defaults Agents Should Follow
 
 - Mark a citation `[UNVERIFIED]` when it cannot be verified, and never invent BibTeX venue or year fields.
-- Treat `agent-style` as binding for `.md` / `.tex` / `.rst` / `.txt` writes; for a paper or proposal abstract, introduction, or conclusion, also load `author-voice` if installed.
+- Treat `agent-style` as binding for `.md` / `.tex` / `.rst` / `.txt` writes. When `author-voice` is installed, apply it to each paper or proposal section drafted or revised, even when no writing skill was invoked; typo, citation, and single-word fixes skip it. For an abstract, introduction, or conclusion, read the section's template and exemplar passages first. Once the section's edits are complete, follow the skill's steps 4 and 5 on the whole section. Check it alone if its file contains several sections, and use `--section other` for sections other than abstracts, introductions, and conclusions. Ask the user first when a paper's lead author appears to be someone else.
