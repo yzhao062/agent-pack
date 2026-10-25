@@ -52,6 +52,8 @@ override these defaults when they conflict.
 - LaTeX for papers and proposals; Markdown for documentation; reStructuredText where Sphinx is in play.
 - Claude drafts prose a person will read (paper and proposal text, abstracts, emails, documentation). Agy, prun units, and Codex do not; a Codex or Agy coordinator hands that draft to Claude or the user. A Codex or Agy reviewer's suggested wording marks the problem; Claude writes the fix.
 - macOS / Windows / Linux all in active use. PyCharm and VS Code as editors.
+- `~/PycharmProjects/research-compute` (private repo <https://github.com/yzhao062/research-compute>) documents the lab's GPUs, model APIs, and credits. Read its `RESOURCE-GUIDE.md` before treating a resource as unavailable or paying for a commercial API.
+- `~/PycharmProjects/research-data/` holds long-lived files that stay out of git: experiment results, archives, backups, and dataset caches. It is a plain folder on Yue's Mac with no remote. Read its `README.md` before downloading a corpus again, recomputing a listed result, or choosing where a new long-lived result goes. If the folder is missing, report that it is unavailable in this session and do not recreate it.
 - GitHub for source control; `gh` CLI for PR / issue work.
 
 ## Active focus snapshot
