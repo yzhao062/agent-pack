@@ -59,7 +59,7 @@ packs:
 
   - name: acad-skills
     description: >
-      Active skill pack for academic-writing tasks. Bundles six skills:
+      Active skill pack for academic work. Bundles seven skills:
       author-voice (drafts an abstract, introduction, or conclusion in the
       author's own pre-AI voice from exemplars, and measures the draft),
       bibref-filler (BibTeX completion for new citations during drafting),
@@ -70,7 +70,9 @@ packs:
       contact sheet so the author can cherry-pick; needs /workflows),
       venue-review-panel (venue-calibrated three-agent paper review with
       Codex, Claude, and Agy, synthesized into an area-chair decision and a
-      score-improvement plan).
+      score-improvement plan), demo-video (a one-minute demo or promo video of
+      a research code project, made from real REPL output and rendered by
+      script, with original music and optional edge-tts narration).
       Loadable via anywhere-agents v0.5.0+ remote pack consumption; copies
       each skill to .claude/skills/<name>/ in the consumer repo. Declaring
       codex lets anywhere-agents link each skill under .agents/skills/ on
@@ -110,4 +112,9 @@ packs:
         files:
           - from: skills/venue-review-panel/
             to: .claude/skills/venue-review-panel/
+      - kind: skill
+        required: false
+        files:
+          - from: skills/demo-video/
+            to: .claude/skills/demo-video/
     maintainer: yzhao062

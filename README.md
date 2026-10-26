@@ -24,7 +24,7 @@ A public, fork-friendly pack repo: real content the maintainer uses on every pro
 |---|---|---|---|
 | `profile` | Passive (rule pack) | ✅ Loadable today | Loads the maintainer's profile (research focus, public projects, communication preferences, tools, conventions) into the consumer `AGENTS.md` so any agent gets the context on session start |
 | `paper-workflow` | Passive (rule pack) | ✅ Loadable today | Loads paper / proposal conventions into the consumer `AGENTS.md`: submodule push and pull etiquette, Overleaf merge-conflict resolution rules, NSF / NIH framework defaults, and revision discipline. Apply on academic repos, skip on prototype / OSS repos |
-| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs six academic-writing skills (`author-voice`, `bibref-filler`, `bibref-verify`, `figure-prompt-builder`, `figure-candidate-gallery`, `venue-review-panel`) into `.claude/skills/`; on macOS and Linux, `anywhere-agents` also links them under `.agents/skills/` for Codex. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
+| `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs seven skills for academic work (`author-voice`, `bibref-filler`, `bibref-verify`, `figure-prompt-builder`, `figure-candidate-gallery`, `venue-review-panel`, and `demo-video` for a short video of a research code project) into `.claude/skills/`; on macOS and Linux, `anywhere-agents` also links them under `.agents/skills/` for Codex. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
 
 The repo doubles as a clean reference: the structure is what every third-party pack should look like.
 
@@ -77,6 +77,8 @@ A reference matrix for which packs to load on which kinds of project:
 | Submitted paper, revision phase only | ✅ | ✅ | — |
 | Funding proposal | ✅ | ✅ | ✅ |
 
+An OSS repo that wants `demo-video` loads `acad-skills` as well.
+
 > [!NOTE]
 > Active skill installation requires `anywhere-agents` v0.5.0+, which added direct-URL pack discovery and the 4-method auth chain. Consumers still on v0.4.0 can use the passive bodies (`profile`, `paper-workflow`) by copying them into local instructions or by registering the packs in a bootstrap manifest they control; the active `acad-skills` pack is loadable only on v0.5.0+.
 
@@ -106,6 +108,7 @@ agent-pack/
 │   ├── author-voice/
 │   ├── bibref-filler/
 │   ├── bibref-verify/
+│   ├── demo-video/
 │   ├── figure-candidate-gallery/
 │   ├── figure-prompt-builder/
 │   └── venue-review-panel/
