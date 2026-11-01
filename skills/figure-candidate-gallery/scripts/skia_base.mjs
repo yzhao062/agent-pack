@@ -42,6 +42,8 @@ export const HAIRLINE = '#D0D0D0'
 // every check still agreed, since both helpers would agree on the same wrong
 // defaults. The rules match figure_base.load_run_config exactly.
 export let FONT = 'sans'
+export let FAMILY = []   // fonts tried before the mode's stack; palette.json "family"
+export let MIN_PT = 7    // type floor at the insertion width; palette.json "minPt"
 const RUN_CONFIG = join(dirname(fileURLToPath(import.meta.url)), 'palette.json')
 let raw = null
 try {
@@ -68,6 +70,14 @@ if (raw !== null) {
   if (font !== 'sans' && font !== 'serif') {
     throw new Error(`${RUN_CONFIG}: font must be "sans" or "serif", got ${JSON.stringify(font)}`)
   }
+  const family = 'family' in cfg ? cfg.family : []
+  if (!Array.isArray(family) || !family.every(n => typeof n === 'string' && n.trim())) {
+    throw new Error(`${RUN_CONFIG}: family must be a list of font names, got ${JSON.stringify(family)}`)
+  }
+  const minPt = 'minPt' in cfg ? cfg.minPt : MIN_PT
+  if (typeof minPt !== 'number' || !Number.isFinite(minPt) || !(minPt > 0)) {
+    throw new Error(`${RUN_CONFIG}: minPt must be a positive number, got ${JSON.stringify(minPt)}`)
+  }
   const palette = 'palette' in cfg ? cfg.palette : {}
   if (!isObject(palette)) throw new Error(`${RUN_CONFIG}: palette must be an object`)
   const merged = {}
@@ -86,6 +96,8 @@ if (raw !== null) {
   }
   Object.assign(PALETTE, merged)
   FONT = font
+  FAMILY = family.map(n => n.trim())
+  MIN_PT = minPt
 }
 
 const PT = 72
@@ -98,6 +110,7 @@ if (FONT === 'serif') {
     FontLibrary.use('body', [
       'C:/Windows/Fonts/pala.ttf',
       'C:/Windows/Fonts/palatinolinotype.ttf',
+      '/System/Library/Fonts/Palatino.ttc',
       '/usr/share/fonts/**/P052*.ttf',
       '/usr/share/fonts/**/*Palladio*.ttf',
     ])
@@ -109,9 +122,16 @@ if (FONT === 'serif') {
 // from the run font, so a failed 'body' registration still renders serif
 // rather than silently falling back to the sans stack while FONT still
 // reads 'serif'. matplotlib resolves an equivalent family for the same run.
+// A run "family" goes first, ahead of the 'body' alias, as it does in
+// figure_base.
+const LEAD = FAMILY.map(n => `${n}, `).join('')
 export const FONT_STACK = FONT === 'serif'
-  ? `${bodyRegistered ? 'body, ' : ''}Palatino Linotype, P052, DejaVu Serif, serif`
-  : 'Arial, Helvetica, DejaVu Sans, sans-serif'
+  ? `${LEAD}${bodyRegistered ? 'body, ' : ''}Palatino Linotype, Palatino, P052, DejaVu Serif, serif`
+  : `${LEAD}Arial, Helvetica, DejaVu Sans, sans-serif`
+
+// Every text helper raises a requested size to the run's floor, so a default
+// such as fs = 9 cannot ship under a venue's 12 pt rule.
+const floor = fs => Math.max(fs, MIN_PT)
 
 export function makeCanvas(wIn, hIn) {
   const canvas = new Canvas(wIn * PT, hIn * PT)
@@ -149,6 +169,7 @@ export function card(ctx, x, y, w, h, role, { r = 7, lw = 1.4 } = {}) {
 // A pill-shaped label chip centered on (cx, cy).
 export function chip(ctx, cx, cy, label, role, { pad = 7, fs = 9 } = {}) {
   const p = PALETTE[role] || PALETTE.data
+  fs = floor(fs)
   ctx.font = `${fs}px ${FONT_STACK}`
   const w = ctx.measureText(label).width + pad * 2
   const h = fs + pad
@@ -228,6 +249,7 @@ export function hazard(ctx, x, y,
 export function label(ctx, text, x, y,
                       { fs = 9, color = INK, align = 'center',
                         baseline = 'middle', weight = '' } = {}) {
+  fs = floor(fs)
   ctx.font = `${weight ? weight + ' ' : ''}${fs}px ${FONT_STACK}`
   ctx.fillStyle = color
   ctx.textAlign = align
@@ -237,6 +259,7 @@ export function label(ctx, text, x, y,
 
 // Edge label on a small white plate so it stays legible where it crosses a line.
 export function edgeLabel(ctx, text, x, y, { fs = 7.5, color = SUBTLE } = {}) {
+  fs = floor(fs)
   ctx.font = `${fs}px ${FONT_STACK}`
   const w = ctx.measureText(text).width + 6
   const hh = fs + 4
@@ -255,6 +278,7 @@ export function edgeLabel(ctx, text, x, y, { fs = 7.5, color = SUBTLE } = {}) {
 // A labeled graph node: a circle (agents) or a small role card (stores, tools).
 export function node(ctx, x, y, text, role,
                      { r = 16, shape = 'circle', fs = 9 } = {}) {
+  fs = floor(fs)
   ctx.font = `${fs}px ${FONT_STACK}`
   const p = PALETTE[role] || PALETTE.data
   if (shape === 'card') {
@@ -296,7 +320,7 @@ export function nodeLinkGraph(ctx, { nodes, edges = [] }, { nodeR = 16 } = {}) {
     const x2 = b.x - ux * (rb + 2)
     const y2 = b.y - uy * (rb + 2)
     arrow(ctx, x1, y1, x2, y2, {
-      dashed: !!e.dashed,
+      dashed: !!e.dashed || !!e.hazard,   // a hazard edge is red and dashed
       color: e.hazard ? PALETTE.bad.accent : INK,
       lw: e.hazard ? 1.5 : 1.25,
     })

@@ -37,6 +37,8 @@ into the brief.
 | Latent-cause posterior | Posterior bars over causes with an abstain floor and one verdict callout. | balanced | matplotlib | illustrative |
 | Least-agency knee | A utility-versus-agency curve with the knee marked, the feasible band shaded, and `P*` tied to the constraint. | balanced | matplotlib | illustrative |
 | Feasibility dumbbell | Two series per row (baseline versus method) with a chance line and direct values. | balanced | matplotlib | real-data |
+| Unit chart | One mark per counted item: for each condition, all N items as small marks in a compact grid, the counted ones filled in the accent and the rest in a pale tone, with one label and one "k of N" per panel. Fits a few counts out of a known total, especially when most are near zero and a bar chart would show one bar. | sparse: one label and one count per panel | matplotlib | real-data or transcribed |
+| Threshold stack | Stacked bars against a threshold line, one bar per scenario, the terms in one fixed order with the term whose change the message names on top, so the crossing falls inside it. Pale band above the threshold, the total at each bar's end, one verdict per bar. | balanced: term symbols labeled once, totals and verdicts per bar | matplotlib | illustrative or transcribed |
 | Lifecycle ribbon | Layer bands such as Data, Model, Harness. Hero-adjacent; use only when no core overview figure already owns the arc. | sparse | skia | conceptual |
 
 ### Named Composition Exemplars
@@ -62,6 +64,10 @@ into the brief.
   one schematic so it reads like a table.
 - `custom-hazard`: any warning glyph drawn outside the shared helper
   (`hazard()` in skia, `hazard_triangle()` in matplotlib).
+- `bare-chart`: a data plot of axes, bars, and labels at one weight, with no
+  reference element and no emphasized element. It passes every gate and still
+  reads as undesigned. A brief that sets a data plot to "sparse, nothing else"
+  requests it; see the Design Layer in `visual-system.md`.
 
 ### The Density Gate
 

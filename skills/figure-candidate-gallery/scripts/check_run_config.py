@@ -5,9 +5,9 @@ Run this after tree prep and before the fan-out:
     <python> <skill-dir>/scripts/check_run_config.py --dir <candDir>
 
 It loads `figure_base.py` and, when a batch uses skia, `skia_base.mjs` from the
-run directory, then compares the complete palette and the font. Exit 0 means
-both helpers resolved the same visual system; any other exit prints what
-differs and names the file to fix.
+run directory, then compares the complete palette, the font mode, the font
+family, and the type floor. Exit 0 means both helpers resolved the same visual
+system; any other exit prints what differs and names the file to fix.
 
 Comparing the whole map matters. A check that samples one role passes while a
 `bad` accent or a custom role silently diverges, and a mixed batch then ships
@@ -30,13 +30,15 @@ PY_SNIPPET = (
     "import sys, json;"
     "sys.path.insert(0, sys.argv[1]);"
     "import figure_base as f;"
-    "print(json.dumps({'palette': f.PALETTE, 'font': f.FONT}, sort_keys=True))"
+    "print(json.dumps({'palette': f.PALETTE, 'font': f.FONT,"
+    " 'family': f.FAMILY, 'minPt': f.MIN_PT}, sort_keys=True))"
 )
 
 JS_SNIPPET = (
     "import {pathToFileURL} from 'node:url';"
     "const m = await import(pathToFileURL(process.argv[1]).href);"
-    "console.log(JSON.stringify({palette: m.PALETTE, font: m.FONT}))"
+    "console.log(JSON.stringify({palette: m.PALETTE, font: m.FONT,"
+    " family: m.FAMILY, minPt: m.MIN_PT}))"
 )
 
 
@@ -70,7 +72,8 @@ def main():
     print("run config:", cfg if os.path.exists(cfg) else "(absent, shipped defaults apply)")
 
     py = _run([sys.executable, "-B", "-c", PY_SNIPPET, run_dir], "figure_base.py")
-    print("matplotlib: font=" + py["font"], "roles=" + ",".join(sorted(py["palette"])))
+    print("matplotlib: font=" + py["font"], "family=" + json.dumps(py["family"]),
+          "minPt=" + str(py["minPt"]), "roles=" + ",".join(sorted(py["palette"])))
 
     skia = os.path.join(run_dir, "skia_base.mjs")
     if not os.path.isfile(skia):
@@ -83,11 +86,16 @@ def main():
         return 2
 
     js = _run([node, "--input-type=module", "-e", JS_SNIPPET, skia], "skia_base.mjs")
-    print("skia:       font=" + js["font"], "roles=" + ",".join(sorted(js["palette"])))
+    print("skia:       font=" + js["font"], "family=" + json.dumps(js["family"]),
+          "minPt=" + str(js["minPt"]), "roles=" + ",".join(sorted(js["palette"])))
 
     problems = []
     if py["font"] != js["font"]:
         problems.append(f"font: matplotlib {py['font']!r} vs skia {js['font']!r}")
+    if py["family"] != js["family"]:
+        problems.append(f"family: matplotlib {py['family']} vs skia {js['family']}")
+    if float(py["minPt"]) != float(js["minPt"]):
+        problems.append(f"minPt: matplotlib {py['minPt']} vs skia {js['minPt']}")
     for role in sorted(set(py["palette"]) | set(js["palette"])):
         a, b = py["palette"].get(role), js["palette"].get(role)
         if a != b:
@@ -100,7 +108,7 @@ def main():
         print(f"fix {cfg}, or the copies of the helpers beside it", file=sys.stderr)
         return 1
 
-    print("OK: both helpers resolve the same palette and font")
+    print("OK: both helpers resolve the same palette, font, family, and type floor")
     return 0
 
 

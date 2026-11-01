@@ -7,7 +7,9 @@ palette, type, motifs, sizing, and toolkit that hold that consistency.
 
 The composition contracts in `candidate-archetypes.md`, the type and sizing
 rules below, and the legibility and encoding gates in this file are the quality
-floor. Every one of them can be checked against a rendered PNG. Any technique
+floor. Every one of them can be checked against a rendered PNG. A floor is not
+a finish: a figure can pass every gate and still read as undesigned, which is
+what the Design Layer section and the visual bar in Phase 2 exist for. Any technique
 pulled in from outside, including the figures4papers repo cited at the end, is
 adopted only when the result still passes all of them, and an outside default
 tuned for a different figure size is adapted to this small column-width regime
@@ -40,6 +42,33 @@ figure into a list of failures and pulls the eye to the problems rather than to
 the thresholds. Keep `bad` for the one place that genuinely needs it, and set a
 deficit in the neutral gray.
 
+### A Two-Role Variant for Ownership Figures
+
+The map above assigns a color per layer, which fits a document organized by
+aim. A figure whose real question is who owns a thing wants one hue per kind of
+work, with three tones each:
+
+| Role | Line | Fill | Accent | Used for |
+|---|---|---|---|---|
+| project | `#1F4E79` | `#DEEBF7` | `#9DC3E6` | Internal work the team controls |
+| community | `#4A7C3F` | `#E2F0D9` | `#A9D08E` | Community and external work |
+| neutral | `#767171` | | | Owners, baselines, legends, anything that must recede |
+
+Each tone keeps one job across both hues: `fill` backs an activity bar, `line`
+fills a milestone block and draws its border, `accent` draws internal dividers.
+Blue against green avoids the common red-green confusion axis but is not
+grayscale-safe (the two light fills sit near 1.02:1 relative luminance
+contrast), so keep the role labels visible and let hue reinforce the role
+rather than carry it.
+
+A vertical fade per row or panel, from the role's `fill` tone at the top to
+white at about 92 percent of the height, reads as designed where a flat tint
+reads as default, and it costs no height, text, or legend. In skia use
+`createLinearGradient`; in matplotlib draw a gradient image clipped to the
+patch; in HTML use `linear-gradient(180deg, <fill>, #FFFFFF 92%)`. When a figure
+is rebuilt narrower, check that the fade survived: a narrow rebuild tends to
+flatten it into alternating flat fills, and the diff shows no change in text.
+
 ## Type
 
 Default to sans (`Arial`, `Helvetica`, `DejaVu Sans`) for crisp small plots.
@@ -52,6 +81,17 @@ these are column-width insets: title near 9 pt, axis labels near 8 pt, ticks and
 in-figure notes at 7 pt. Nothing goes below 7 pt. The legibility gate below is
 the binding rule, and it fails a figure whose smallest text sits under that
 floor at the width the figure is placed.
+
+A venue rule outranks these defaults. When a solicitation fixes the font and a
+minimum size for the whole document and does not exempt figures (a defense
+broad agency announcement that requires "Times New Roman, not smaller than
+12 point" is one), set `"family"` and `"minPt"` in `palette.json`. Both helpers
+lead with that family, matplotlib sets its mathtext letters from it, and every
+default text size rises to the floor, so the three-tier sizing above collapses
+into one size. Cut labels before shrinking anything, and build the hierarchy
+from weight and color instead (Design Layer below). Mathtext super- and
+subscripts still render smaller than their base symbol, as they do in the
+body math.
 
 Size-regime warning. The figures4papers repo recommends 16 to 24 pt fonts and
 2.5 to 3.0 axis line width. Those values are tuned for large, standalone paper
@@ -74,6 +114,41 @@ instead.
 - Composition and density: the look of a schematic is set by its composition
   contract and density target, not just its shape. See the contracts, named
   exemplars, anti-patterns, and the density gate in `candidate-archetypes.md`.
+
+## Design Layer
+
+The gates below catch a broken figure. A batch built only to pass them comes
+back as axes, bars, and labels at one weight, which is the `bare-chart`
+anti-pattern: correct, and plain beside an author's own accepted plots. Every
+data plot carries these:
+
+- One reference element that gives the values meaning: a threshold line, a
+  chance or target band, a baseline, or the full scale drawn as a pale track.
+  Shade the region that matters (below chance, above threshold) in a very light
+  tone rather than relying on the line alone.
+- One emphasized element, the thing the message is about: the accent color
+  with a darker edge, everything else in a muted gray. When every series gets a
+  strong color, nothing is emphasized.
+- At least two tiers of text. Size is the usual tier; under a raised floor use
+  weight (bold for the key value) and color (ink for primary text, gray for
+  secondary labels and units).
+- Direct labels in place of a legend wherever they fit.
+- Light structure: hairline grids, thin edges, pale bands, no heavy frames.
+- Optionally, a bold one-line headline that states the finding, above a gray
+  one-line method note. At a 7 pt floor in a column-width figure this is often
+  what separates a designed plot from a default one. In a narrow slot under a
+  raised floor it rarely fits, and the caption carries the finding instead.
+
+Two failures sit in this layer rather than in the gates. A message that does
+not match the geometry: in a stack drawn against a threshold, put the term
+whose change the caption names on top, so the crossing falls inside that term
+and not inside an unchanged one. A thin dataset forced into a chart that cannot
+show it: three or four counts with most near zero read as one bar, so use the
+Unit chart archetype in `candidate-archetypes.md`.
+
+The visual bar from Phase 2 of the skill is the reference for this layer. Match
+the finish of the author's accepted figures, not their colors, which come from
+`palette.json`.
 
 ## Encoding Techniques Worth Reusing
 
@@ -101,7 +176,11 @@ the small-figure quality:
 
 - Column width about 3.45 in (`COL_W`); full text width about 7.1 in
   (`WIDE_W`).
-- Legible at 7 pt. Check the contact sheet at 100 percent before presenting.
+- Legible at the run's floor (7 pt by default, `minPt` when set). Measure each
+  PDF with `scripts/measure_pdf.py`, then check the contact sheet at 100
+  percent before presenting.
+- A figure that fills a fixed slot is created at the slot size and saved with
+  `save(..., exact=True)`, so the page width equals the slot width.
 - PDF with `pdf.fonttype = 42` so fonts embed as TrueType, never Type 3. PNG at
   200 to 300 dpi for the preview. The PDF is the asset that ships.
 - Trim stray margins with `pdfcrop --margins 2` if a canvas or browser export
@@ -129,12 +208,16 @@ its own rendered PNG before returning:
   size equal across series unless size encodes a variable, so it does not read as
   a stray third channel.
 - Nothing clipped. All text and glyphs sit inside the figure bounds.
-- Hard 7pt floor. No text element may render below 7pt at the width the figure is
-  placed (about 0.48 text width is roughly 3.3in, so author and check at that
-  size, not at a larger native canvas). Reject a 5 to 6pt subtitle, legend,
-  axis label, or in-figure formula. Move a dense formula and the
+- Hard type floor. No text element may render below the run's floor (7 pt by
+  default, `minPt` when the venue sets one) at the width the figure is placed
+  (the brief's slot width, or `COL_W` for an ordinary column-width figure, so
+  author and check at that size, not at a larger native canvas). Reject a 5 to
+  6pt subtitle, legend, axis
+  label, or in-figure formula. Move a dense formula and the
   "illustrative" tag into the LaTeX caption instead of shrinking them into the
   figure: the figure shows the picture, the caption carries the precise notation.
+  `scripts/measure_pdf.py` measures the floor from the PDF; a PNG read by eye
+  cannot tell 6.5 pt from 7.
 
 ## Encoding Discipline
 
@@ -162,26 +245,34 @@ its own rendered PNG before returning:
 
 ## Toolkit Modules
 
-The skill ships four scripts under `scripts/`. Two of them, `figure_base.py`
+The skill ships six scripts under `scripts/`. Two of them, `figure_base.py`
 and, when a brief uses skia, `skia_base.mjs`, are copied into the run
-directory before fan-out, and candidates import those copies. The other two
+directory before fan-out, and candidates import those copies. The other four
 run in place from `<skill-dir>/scripts/`. Tree prep creates `palette.json` in
 the run directory; it is not shipped.
 
-- `palette.json`: the run's `palette` and `font`, written by tree prep into
-  the run directory and read by both copied helpers at import. A malformed
-  file raises rather than falling back to the shipped defaults.
+- `palette.json`: the run's `palette` and `font`, plus the optional `family`
+  and `minPt`, written by tree prep into the run directory and read by both
+  copied helpers at import. A malformed file raises rather than falling back to
+  the shipped defaults.
 - `figure_base.py`: shared rcParams, the palette, `style_axes`,
-  `panel_label`, `hazard_triangle`, and `save` (writes PDF plus PNG).
+  `panel_label`, `hazard_triangle`, and `save` (writes PDF plus PNG; pass
+  `exact=True` for a fixed slot).
 - `skia_base.mjs`: `makeCanvas`, `card`, `chip`, `arrow`, `roundRect`,
   `hazard`, `label`, `edgeLabel`, `node`, `nodeLinkGraph`, `saveCanvas`, and the
   matching PALETTE for schematics. Use `nodeLinkGraph` for interaction graphs and
   `hazard` for every warning mark rather than rebuilding them per candidate.
+  Its text helpers raise any requested size to the run's floor.
 - `scripts/check_run_config.py`: run from `<skill-dir>/scripts/`, compares the
-  full palette and font that both run-local helpers resolve, and exits
-  nonzero when they differ or when the config will not load.
+  full palette, font, family, and type floor that both run-local helpers
+  resolve, and exits nonzero when they differ or when the config will not load.
 - `scripts/make_contact_sheet.py`: run from `<skill-dir>/scripts/`, tiles
   every `cand-*.png` into one labeled review grid.
+- `scripts/measure_pdf.py`: run on each candidate PDF; checks the page width
+  against the slot and every text span against the floor. Needs PyMuPDF.
+- `scripts/measure_free_space.py`: run on the compiled document before placing
+  a tall figure; a screening estimate of the unused text depth on a page.
+  Needs PyMuPDF.
 
 ## External Reference
 
