@@ -34,6 +34,7 @@ Use tables for repeated comparisons and priorities, but keep analytical reasonin
 ## Report content rules
 
 - Preserve each reviewer's raw score and confidence.
+- In the reviewer score table, give the model and effort each external reviewer actually ran on, taken from the `actual` record, and the session's model and effort in the coordinator's row. Show every known value and mark only an unavailable one `unknown`. Label a reviewer whose run showed `MODEL-MISMATCH` or `MODEL-UNVERIFIED`, and say what the label means for that score.
 - Keep Chinese-model guardrail scores and findings in the guardrail section. The panel findings, calibrated score, and priority list are final before guardrail triage.
 - Label the calibrated score as the panel or area-chair-style judgment.
 - State why reviewers disagree, not only that they disagree.

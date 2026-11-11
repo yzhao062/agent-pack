@@ -354,6 +354,11 @@ const PYTHON = args.python        // the configured interpreter
 const NODE = args.node || 'node'  // the configured Node, for skia candidates
 const MIN_PT = args.minPt || 7    // the minPt written to palette.json, if any
 const REFS = args.referenceImages || []   // absolute PNG paths: the visual bar
+// The registry's worker model and effort, resolved before launch (the script
+// cannot run the resolver).
+const MODEL = args.model
+const EFFORT = args.effort
+if (!MODEL || !EFFORT) throw new Error('args.model and args.effort come from the registry resolver')
 
 // Stop before fan-out on a missing required key; a gap would otherwise reach
 // the agent as the word "undefined".
@@ -416,7 +421,7 @@ const results = await parallel(BRIEFS.map(b => () => agent(
     `Self-assess honestly as strong, ok, or weak. A weak verdict on your own figure is useful; an inflated one costs the author a review round.`,
     `Return the metadata object: id is ${b.id} verbatim, file is the absolute path of the PDF, tool is matplotlib or skia, and dataSource repeats the source path and cite key (real-data), the .tex file and sentence (transcribed), or "n/a" (conceptual and illustrative).`,
   ].join(' '),
-  { label: b.id, phase: 'Render', schema: SCHEMA }
+  { label: b.id, phase: 'Render', schema: SCHEMA, model: MODEL, effort: EFFORT }
 )))
 
 return results.filter(Boolean)
@@ -424,10 +429,30 @@ return results.filter(Boolean)
 
 Pass `skillDir` the resolved absolute `<skill-dir>`, never the literal
 placeholder. The full `args` object is `{briefs, candDir, skillDir, python,
-node, minPt, referenceImages}`; `node` is needed only for skia candidates,
-`minPt` only when `palette.json` sets one, and `referenceImages` is the visual
-bar. A child agent reads only its own prompt, so a path this workflow does not
-interpolate is a path the child cannot find.
+node, minPt, referenceImages, model, effort}`; `node` is needed only for skia
+candidates, `minPt` only when `palette.json` sets one, and `referenceImages` is
+the visual bar. A child agent reads only its own prompt, so a path this
+workflow does not interpolate is a path the child cannot find.
+
+**Resolve and check the render agents' model and effort.** Before launch, run
+`<python> <resolver> resolve --family claude --role worker --json` and pass its
+`model` and `effort` fields as `args.model` and `args.effort`; the script hands
+both to every `agent()` call. Find `<resolver>` under the project root at
+`.agent-config/repo/scripts/agent_models.py` (a consumer), else
+`scripts/agent_models.py` (a source repo). If it cannot answer, stop and name
+the registry (`user/agent-models.json`, see the `agent-models` skill); do not
+choose a model by hand. A session whose `CLAUDE_CODE_EFFORT_LEVEL` is set runs
+every agent at that effort whatever the call passes. Compare it with the
+resolved effort before spending a batch, and when they differ tell the user
+instead of exporting the variable from a child shell, which cannot change the
+parent. After the workflow returns, read each agent's transcript under
+`<claude-config-dir>/projects/<project>/<session>/subagents/workflows/` and
+compare its `message.model` (an alias such as `sonnet` matches an id
+`claude-sonnet-*`) and `effort` with the resolved pair. A recorded value that
+differs is `MODEL-MISMATCH`. A missing transcript or field is
+`MODEL-UNVERIFIED`, naming what is missing; do not infer a mismatch from
+absence. Report either next to the batch result with the requested and actual
+values.
 
 Each render agent uses the shared toolkit so the batch stays consistent. The
 `real-data` branch of the prompt restates the no-fabrication rule directly to
