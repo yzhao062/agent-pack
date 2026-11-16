@@ -1,12 +1,12 @@
 # Final Report Specification
 
-Create a polished English report when requested explicitly or when the user asks to follow the established three-agent venue-review workflow.
+Create a polished English report when requested explicitly or when the user asks to follow the established venue-review panel workflow.
 
 ## Default deliverable
 
 - Format: DOCX unless the user requests PDF, Markdown, or another format.
 - Language: English unless the user specifies otherwise.
-- Filename: `<PaperShortName>_<Venue>_Three_Reviewer_Report_EN.docx`. Derive `<PaperShortName>` from at most four meaningful title words, replace spaces with underscores, and use ASCII characters only.
+- Filename: `<PaperShortName>_<Venue>_Review_Panel_Report_EN.docx`. Derive `<PaperShortName>` from at most four meaningful title words, replace spaces with underscores, and use ASCII characters only.
 - Destination: use the user's requested path. Otherwise place the final report beside the input manuscript when writable, or in the current workspace output directory. Never leave the only deliverable inside the scratch review workspace.
 - Use the runtime's document-authoring capability for DOCX authoring and its required render and visual inspection loop. If that capability is unavailable, produce the same report structure in Markdown, tell the user about the fallback, and do not claim that DOCX visual inspection occurred.
 
@@ -34,7 +34,8 @@ Use tables for repeated comparisons and priorities, but keep analytical reasonin
 ## Report content rules
 
 - Preserve each reviewer's raw score and confidence.
-- In the reviewer score table, give the model and effort each external reviewer actually ran on, taken from the `actual` record, and the session's model and effort in the coordinator's row. Show every known value and mark only an unavailable one `unknown`. Label a reviewer whose run showed `MODEL-MISMATCH` or `MODEL-UNVERIFIED`, and say what the label means for that score.
+- Give all four families a row in the reviewer score table. A family with no review keeps its row, with `not configured` (an external Grok route that meets the not-configured rule in `SKILL.md`) or the route failure in place of a score, and `n/a` for confidence, model, and effort.
+- For each completed review, give the model and effort the external reviewer actually ran on, taken from the `actual` record, or the session's model and effort in the coordinator's row. Show every known value and mark only an unavailable one `unknown`. Label a completed review whose run showed `MODEL-MISMATCH` or `MODEL-UNVERIFIED`, and say what the label means for that score.
 - Keep Chinese-model guardrail scores and findings in the guardrail section. The panel findings, calibrated score, and priority list are final before guardrail triage.
 - Label the calibrated score as the panel or area-chair-style judgment.
 - State why reviewers disagree, not only that they disagree.

@@ -70,9 +70,9 @@ packs:
       figure-prompt-builder (figure-prompt scaffolding with reference bank),
       figure-candidate-gallery (batch-renders candidate small figures to one
       contact sheet so the author can cherry-pick; needs /workflows),
-      venue-review-panel (venue-calibrated three-agent paper review with
-      Codex, Claude, and Agy, synthesized into an area-chair decision and a
-      score-improvement plan), demo-video (a one-minute demo or promo video of
+      venue-review-panel (venue-calibrated multi-agent paper review with
+      Codex, Claude, Agy, and Grok, synthesized into an area-chair decision
+      and a score-improvement plan), demo-video (a one-minute demo or promo video of
       a research code project, made from real REPL output and rendered by
       script, with original music and optional edge-tts narration).
       Loadable via anywhere-agents v0.5.0+ remote pack consumption; copies
