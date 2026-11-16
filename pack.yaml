@@ -59,9 +59,11 @@ packs:
 
   - name: acad-skills
     description: >
-      Active skill pack for academic work. Bundles seven skills:
+      Active skill pack for academic work. Bundles eight skills:
       author-voice (drafts an abstract, introduction, or conclusion in the
       author's own pre-AI voice from exemplars, and measures the draft),
+      polish (reviews and polishes a paper, proposal, or other technical
+      draft in place, then rechecks it and reports what changed),
       bibref-filler (BibTeX completion for new citations during drafting),
       bibref-verify (pre-submission audit of existing .bib for hallucinated
       citations or stale metadata; companion to bibref-filler),
@@ -87,6 +89,11 @@ packs:
         files:
           - from: skills/author-voice/
             to: .claude/skills/author-voice/
+      - kind: skill
+        required: false
+        files:
+          - from: skills/polish/
+            to: .claude/skills/polish/
       - kind: skill
         required: false
         files:
