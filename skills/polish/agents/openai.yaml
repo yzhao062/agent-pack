@@ -1,4 +1,4 @@
 interface:
   display_name: "Polish"
-  short_description: "Review a draft for polishing and report the findings"
-  default_prompt: "Use $polish to review the named draft: run the style audit and, for a paper or proposal, the author-voice check, read it against the review lenses, and report each finding with its location. Under Codex, leave the edits to Claude or the user, as the profile pack says."
+  short_description: "Review and polish a draft in place in one pass"
+  default_prompt: "Use $polish to review and polish the named draft in place: run the style audit and, for a paper or proposal, the author-voice check, edit only the passages the review flags within step 3's limits, rerun the checks, and report each changed phrase with the finding it answers."

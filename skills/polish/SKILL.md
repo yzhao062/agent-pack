@@ -12,7 +12,7 @@ This skill holds an order of steps, the limits on an edit, and a report. The sty
 - **Target.** The files the user names, and a section when named. Edits go in place, so the git diff is the review surface. Run `git status` first and tell the user when the target already has uncommitted edits, since the diff will mix them with this pass.
 - **Kind.** A paper or proposal gets every step. Other technical writing (README, docs, report, email draft) gets the steps not marked *paper or proposal*.
 - **Mode.** `review` (or "just review") stops after step 2. Otherwise run all steps.
-- **Writer.** The profile pack has Claude draft prose a person will read. Under Codex or Agy this overrides Kind and Mode: run only steps 1 and 2, skip steps 3 and 4, and report the findings with locations and the baseline check results in place of step 5's change report. The edits go to Claude or the user.
+- **Writer.** The agent that runs this skill as the coordinator makes the edits, whether Claude Code or Codex. A `/polish` request is the user's choice of writer for that draft, so it overrides the profile pack's default that Claude drafts prose a person will read. Step 3's limits bind every writer. A worker dispatched by `prun` or `/vet` does not run this skill.
 - **Lead author.** `author-voice` reproduces the user's own voice. When a paper's lead author appears to be someone else, ask before applying it.
 - **Local rules.** Read the repository's `AGENTS.local.md` and any style source it names. Where they set a genre's conventions (a federal proposal's opening, a peer review's register, an email template's punctuation), they govern that draft: report a departure from the shared defaults, and do not edit toward the default.
 
