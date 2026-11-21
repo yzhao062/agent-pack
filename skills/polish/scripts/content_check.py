@@ -4,7 +4,8 @@
 `snapshot` saves each target before the pass. `compare` reads each target again
 and prints every number, citation, link, label, cross-reference, and math
 expression whose count changed in that file, and names the other searched files
-that hold the same token as leads.
+that hold the same token as leads. The report marks a removed token "(in no
+searched file)" when the search finds no remaining occurrence.
 `compare` exits 0 after printing its report, also when counts changed; a missing
 baseline stops it with an error.
 """
@@ -230,6 +231,8 @@ def default_rest(targets, repo):
 def snapshot(args):
     repo, out = Path(args.repo), Path(args.out)
     for target in map(Path, args.files):
+        if not target.is_file():
+            sys.exit(f"content_check: {target} does not exist; for a new draft, create it empty first")
         dest = out / relpath(target, repo)
         if dest.exists():
             sys.exit(f"content_check: {dest} already holds a baseline; choose a fresh --out")
@@ -264,6 +267,8 @@ def compare(args):
                          if p.resolve() != target.resolve() and found[kind][token]]
                 if leads:
                     entry += " (also in " + ", ".join(leads) + ")"
+                elif new == 0:
+                    entry += " (in no searched file)"
                 entries.append(entry)
             if entries:
                 lines.append(f"  {kind}: " + "; ".join(entries))

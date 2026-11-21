@@ -1,4 +1,4 @@
 interface:
   display_name: "Polish"
-  short_description: "Review and polish a draft in place in one pass"
-  default_prompt: "Use $polish to review and polish the named draft in place: run the style audit and, for a paper or proposal, the author-voice check, edit only the passages the review flags within step 3's limits, rerun the checks, and report each changed phrase with the finding it answers."
+  short_description: "Draft or rewrite prose in the author's voice"
+  default_prompt: "Use $polish to draft or rewrite the named prose: read the writing rules and the author's models, redraft each paragraph that does not already read well, try more than one shape where it matters, check every value and claim against the original and the sources, and report what changed."

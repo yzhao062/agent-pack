@@ -300,8 +300,28 @@ class Compare(unittest.TestCase):
 
     def test_a_lost_token_found_nowhere_else_has_no_lead(self):
         report = self.compare(ABSTRACT.replace("on 2,048-shot runs", "on long runs"))
-        self.assertIn("2048 1 -> 0\n", report + "\n")
+        self.assertIn("2048 1 -> 0 (in no searched file)", report)
         self.assertNotIn("2048 1 -> 0 (also", report)
+
+    def test_a_partial_drop_is_not_marked_gone(self):
+        self.target.write_text(ABSTRACT + "\nThe runs used 2,048 shots.\n")
+        base = Path(self.tmp.name) / "base-partial"
+        self.cli("snapshot", "--repo", str(self.repo), "--out", str(base), str(self.target))
+        self.target.write_text(ABSTRACT + "\nThe runs were long.\n")
+        report = self.cli("compare", "--repo", str(self.repo), "--baseline", str(base), str(self.target))
+        self.assertIn("2048 2 -> 1", report)
+        self.assertNotIn("in no searched file", report)
+
+    def test_snapshot_of_a_missing_target_stops_with_a_message(self):
+        missing = self.repo / "paper" / "new-section.tex"
+        with self.assertRaises(SystemExit) as stop:
+            self.cli("snapshot", "--repo", str(self.repo), "--out", str(Path(self.tmp.name) / "base-new"), str(missing))
+        self.assertIn("create it empty first", str(stop.exception))
+
+    def test_a_token_still_in_the_target_is_not_marked_gone(self):
+        report = self.compare(ABSTRACT.replace("on 2,048-shot runs", "on 2,048-shot runs (2,048 shots)"))
+        self.assertIn("2048 1 -> 2", report)
+        self.assertNotIn("in no searched file", report)
 
     def test_new_numbers_and_citations_are_listed(self):
         report = self.compare(ABSTRACT.replace("Eight predictions", "Nine predictions")
@@ -343,7 +363,7 @@ class Compare(unittest.TestCase):
         other = Path(self.tmp.name) / "elsewhere.md"
         other.write_text("Nothing here.\n")
         report = self.compare(ABSTRACT.replace("by 0.052 on average", "on average"), "--also", str(other))
-        self.assertIn("0.052 1 -> 0\n", report + "\n")
+        self.assertIn("0.052 1 -> 0 (in no searched file)", report)
 
     def test_a_lead_outside_the_repository_is_named_without_stopping(self):
         other = Path(self.tmp.name) / "elsewhere.md"
