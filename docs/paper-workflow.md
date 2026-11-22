@@ -3,7 +3,7 @@
 <!--
 Paper-workflow rule pack, full reference: conventions for paper and
 proposal repos, covering Overleaf submodules, co-PI merges, venues,
-and revision discipline.
+revision discipline, and research design.
 pack.yaml composes the compact variant, docs/paper-workflow-compact.md,
 into the consumer AGENTS.md; it keeps every rule here and drops the
 background prose. Edit a rule in both files.
@@ -16,7 +16,8 @@ Overleaf. Skip on prototype / OSS repos.
 
 Conventions for academic-writing repos. The submodule and Overleaf rules
 apply when the project has a `.gitmodules` file or an Overleaf-synced
-subdirectory; the venue and revision rules apply to any paper or proposal.
+subdirectory; the venue, revision, and research-design rules apply to any
+paper or proposal.
 
 ## Submodule Workflow
 
@@ -81,3 +82,13 @@ Multi-round review pulls a paper away from its story. Each round answers its fin
 2. **Keep the main text for the story.** Defenses against objections no reader raised, the project's path to a result, and small negative results off the main line go to the records. Main text grows only for a new result or for what a reader needs to follow or check a retained claim.
 3. **Report the trend.** State the main pattern and how widely it holds. Report a statistical test only where the claim depends on it; qualify only where it changes the conclusion. A retained robustness check or estimator detail that leaves a claim unchanged gets one main-text clause and an appendix, unless readers or the venue need more.
 4. **Change direction only on purpose.** Run an experiment only if it can change a headline claim or a main table row. Before a finding narrows or reframes the story, state what it cuts and ask the author. Once AI panel scores stop moving, the next readers are people.
+
+## Research Design
+
+Observe the phenomenon first, then explain it. The user has rejected agent-written preregistration as defensive in four sessions since October 2026. A pre-commitment claimed in a paper also gives reviewers one more record to check: venue panels on one paper twice flagged its preregistrations as records a reader cannot verify.
+
+1. **No preregistration by default.** Add or extend one in a research plan, an experiment, a paper, or a proposal only if the user asks for it or a venue requires it. A commitment written before a run counts if it decides whether to run or what to report: a hypothesis, prediction, analysis plan, reporting rule, failure rule, or kill threshold. It often arrives disguised, as "decide in advance what we write if X", "commit to the failure rule before the first request", or a consequence row fixed before the data.
+2. **Inside a paper's design.** Ground the trust in a framework, benchmark, or protocol that a paper proposes in who draws, runs, or writes its evidence, or in an existing institution. An independent party, a system the audited party does not control, or a production stream can supply that ground, as can contract terms, inspection rights, or a standard. A promise made before the data cannot supply that ground, whether registered runs or a configuration fixed before results are seen.
+3. **Surprising results.** When a result breaks the story, vary the factors the data cannot separate, run that experiment broadly, and explain the pattern that comes out. Checking the explanation on new models or data is part of understanding it and does not gate the work. A post hoc explanation is not weaker for being post hoc.
+4. **Reframing.** Settle a reframing once, after the evidence, and say which parts are confident. It needs no predictions written in advance.
+5. **Existing records.** Preregistrations already written stay as history, and a paper that relies on one reports it honestly.

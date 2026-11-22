@@ -1,13 +1,13 @@
 <!-- SPDX-License-Identifier: CC-BY-4.0 -->
 
 <!--
-Compact paper-workflow pack: submodule, Overleaf merge, venue, and
-revision rules for paper and proposal repos. docs/paper-workflow.md is the full reference.
+Compact paper-workflow pack: submodule, Overleaf merge, venue,
+revision, and research-design rules for paper and proposal repos. docs/paper-workflow.md is the full reference.
 -->
 
 # Paper and Proposal Workflow
 
-The submodule and Overleaf rules apply when the project has a `.gitmodules` file or an Overleaf-synced subdirectory; the venue and revision rules apply to any paper or proposal. Skip them all on prototype and OSS repos.
+The submodule and Overleaf rules apply when the project has a `.gitmodules` file or an Overleaf-synced subdirectory; the venue, revision, and research-design rules apply to any paper or proposal. Skip them all on prototype and OSS repos.
 
 ## Submodule Workflow
 
@@ -56,3 +56,7 @@ For NSF and federal proposals, do not introduce DEI-related terms unless the sol
 2. **Keep the main text for the story.** Defenses against objections no reader raised, the project's path to a result, and small negative results off the main line go to the records. Main text grows only for a new result or for what a reader needs to follow or check a retained claim.
 3. **Report the trend.** State the main pattern and how widely it holds. Report a statistical test only where the claim depends on it; qualify only where it changes the conclusion. A retained robustness check or estimator detail that leaves a claim unchanged gets one main-text clause and an appendix, unless readers or the venue need more.
 4. **Change direction only on purpose.** Run an experiment only if it can change a headline claim or a main table row. Before a finding narrows or reframes the story, state what it cuts and ask the author. Once AI panel scores stop moving, the next readers are people.
+
+## Research Design
+
+Observe first, then explain. Add or extend a preregistration only if the user asks or a venue requires it. That covers any hypothesis, prediction, analysis plan, threshold, or reporting or failure rule written before a run that decides whether to run or what to report. "Decide in advance what we write if X" counts. Ground the trust in a framework, benchmark, or protocol a paper proposes in who produces its evidence or in an existing institution. A promise made before the data cannot supply that ground. When a result breaks the story, run the experiment that separates the confounded factors, run it broadly, and explain what comes out. Check the explanation on new models or data as part of understanding it, without gating further work on that check. A post hoc explanation is fine. Settle a reframing once, after the evidence, and say which parts are confident. Keep existing preregistrations as history and report them honestly where a paper relies on them.
