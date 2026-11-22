@@ -24,8 +24,9 @@ version: 2
 packs:
   - name: profile
     description: >
-      Personal profile and working context for Yue Zhao: research focus,
-      public projects, communication preferences, tools, and conventions.
+      Personal profile and working context for Yue Zhao: identity, pointers
+      to current research and projects, communication preferences, tools,
+      and conventions.
       Loaded as passive content into the consumer AGENTS.md so any agent
       (Claude Code, Codex, others) reads the context on session start.
     source:

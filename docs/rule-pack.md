@@ -5,32 +5,22 @@ Personal profile rule pack for Yue Zhao (yzhao062).
 
 Full reference for the profile pack. pack.yaml composes the compact
 variant, docs/rule-pack-compact.md, into a consumer project's AGENTS.md;
-the compact file keeps every rule here and drops the statistics and the
-focus snapshot. Edit a rule in both files.
+the compact file keeps every rule here and drops the background prose.
+Edit a rule in both files.
 -->
 
 # User Profile (yzhao062)
 
 The following bullets describe the user the agent is working with. Use
-this context to tailor tone, default tooling, terminology, and venue
-conventions. Project-specific or task-specific instructions still
-override these defaults when they conflict.
+this context to tailor tone, default tooling, and terminology.
+Project-specific or task-specific instructions still override these
+defaults when they conflict.
 
 ## Identity
 
 - Yue Zhao, Computer Science faculty at the University of Southern California (USC).
-- Research focus: machine learning, anomaly detection, outlier ensembles, automated tabular ML, and applied AI for science.
-- Personal site: <https://yzhao062.github.io>.
 - Public author identity for citations: "Yue Zhao" (Yue is the given name, Zhao is the family name).
-
-## Public projects
-
-- [PyOD](https://github.com/yzhao062/pyod): Python anomaly detection library. Around 10k GitHub stars, 55M+ total downloads, ~12k research citations.
-- [PyGOD](https://github.com/pygod-team/pygod): graph outlier detection library, sister project to PyOD.
-- [anywhere-agents](https://github.com/yzhao062/anywhere-agents): public AI agent configuration with pack architecture.
-- [agent-style](https://github.com/yzhao062/agent-style): writing rule pack covering AI-tell vocabulary, formatting, and field-observed LLM patterns.
-- [agent-config](https://github.com/yzhao062/agent-config): personal working dir and canonical source for anywhere-agents.
-- [agent-pack](https://github.com/yzhao062/agent-pack): this repo, personal pack and reference example for third-party pack authors.
+- For current research and projects, read the personal site <https://yzhao062.github.io> and <https://github.com/yzhao062>.
 
 ## Communication preferences
 
@@ -39,34 +29,15 @@ override these defaults when they conflict.
 - Pacific Time (Los Angeles).
 - Direct over diplomatic. Flag disagreements explicitly rather than soften them; the user prefers a fast back-and-forth over a cushioned monologue.
 
-## Common tasks and venue conventions
-
-- **Research papers.** NeurIPS, ICML, ICLR, KDD, NeurIPS-DB tracks default. ACL / EMNLP for NLP work; CVPR / ICCV for vision.
-- **Funding proposals.** NSF Merit Review framework default; NIH Simplified Peer Review when the call is biomedical. DOE / DOD only on explicit request. Avoid DEI-related terms in NSF / federal proposals unless the solicitation explicitly requires them.
-- **Reviews.** Papers and proposals go through `/vet` like code, with content-type lenses.
-- **Writing discipline.** Follows the [`agent-style`](https://github.com/yzhao062/agent-style) 21-rule pack: 12 classic rules (Strunk / White / Orwell / Pinker tradition) + 9 field-observed LLM patterns (em-dash overuse, summary-tail paragraphs, sentence-opener repetition, transition word overuse, and so on).
-
 ## Tools and stack
 
 - Python primary; Miniforge `py312` environment by default.
 - LaTeX for papers and proposals; Markdown for documentation; reStructuredText where Sphinx is in play.
 - Claude drafts prose a person will read (paper and proposal text, abstracts, emails, documentation). Agy, prun units, and Codex do not; a Codex or Agy coordinator hands that draft to Claude or the user. A Codex or Agy reviewer's suggested wording marks the problem; Claude writes the fix.
-- macOS / Windows / Linux all in active use. PyCharm and VS Code as editors.
+- macOS by default; PyCharm and VS Code as editors.
 - `~/PycharmProjects/research-compute` (private repo <https://github.com/yzhao062/research-compute>) documents the lab's GPUs, model APIs, and credits. Read its `RESOURCE-GUIDE.md` before treating a resource as unavailable or paying for a commercial API.
 - `~/PycharmProjects/research-data/` holds long-lived files that stay out of git: experiment results, archives, backups, and dataset caches. It is a plain folder on Yue's Mac with no remote. Read its `README.md` before downloading a corpus again, recomputing a listed result, or choosing where a new long-lived result goes. If the folder is missing, report that it is unavailable in this session and do not recreate it.
 - GitHub for source control; `gh` CLI for PR / issue work.
-
-## Active focus snapshot
-
-This block goes stale fastest. Treat as a snapshot of what the user is
-likely working on at the time of bootstrap; if the date below is older
-than a few months, recent context probably differs.
-
-- Snapshot date: 2026-04 (post v0.4.0 release of `anywhere-agents`).
-- `pyod` 3 — third major release, expanding modern detector coverage.
-- `anywhere-agents` v0.4.x → v0.5.0 — wiring composer-side locks, startup reconciliation, and private-source pack support with auth chain.
-- `agent-style` ongoing curation of the 21-rule pack as new LLM patterns surface.
-- Active research themes: outlier-detection foundation models, automated detector selection, large-scale benchmark curation.
 
 ## Decision-support stance
 
@@ -104,5 +75,6 @@ and proceed; do not reopen the argument unless the user revisits it.
 
 ## Defaults agents should follow
 
+- Papers and proposals go through `/vet` like code, with content-type lenses.
 - Mark a citation `[UNVERIFIED]` when it cannot be verified, and never invent BibTeX venue or year fields.
 - Treat [`agent-style`](https://github.com/yzhao062/agent-style) as binding for all `.md` / `.tex` / `.rst` / `.txt` writes; its House Style is the user's own writing. When the `polish` skill (in `acad-skills`) is installed, it is the one entry for writing: the writer named above runs it whenever drafting or revising prose a person will read, papers and proposals included, whether or not the user names a skill. It drafts or rewrites the text and applies `agent-style`, `author-voice`, and the review lenses, so the rules reach every draft; typo, citation, and single-word fixes skip it. Without `polish`, apply `author-voice`, when installed, to each paper or proposal section drafted or revised. Ask the user before applying `author-voice` when a paper's lead author appears to be someone else, since it reproduces the user's own voice. Without either skill, the House Style alone applies.

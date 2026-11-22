@@ -22,7 +22,7 @@ A public, fork-friendly pack repo: real content the maintainer uses on every pro
 
 | Pack | Type | Status | What It Does |
 |---|---|---|---|
-| `profile` | Passive (rule pack) | ✅ Loadable today | Loads the maintainer's profile (research focus, public projects, communication preferences, tools, conventions) into the consumer `AGENTS.md` so any agent gets the context on session start |
+| `profile` | Passive (rule pack) | ✅ Loadable today | Loads the maintainer's profile (identity, pointers to current research and projects, communication preferences, tools, conventions) into the consumer `AGENTS.md` so any agent gets the context on session start |
 | `paper-workflow` | Passive (rule pack) | ✅ Loadable today | Loads paper / proposal conventions into the consumer `AGENTS.md`: submodule push and pull etiquette, Overleaf merge-conflict resolution rules, NSF / NIH framework defaults, revision discipline, and research design (no unrequested preregistration). Apply on academic repos, skip on prototype / OSS repos |
 | `acad-skills` | Active (skill pack) | ✅ Loadable on `anywhere-agents` v0.5.0+ | Installs eight academic skills under `.claude/skills/` (`polish`, the one entry for drafting or revising prose, `author-voice` for the section models it uses, `bibref-filler`, `bibref-verify`, `figure-prompt-builder`, `figure-candidate-gallery`, `venue-review-panel`, and `demo-video` for a short video of a research code project); on macOS and Linux, `anywhere-agents` also links them under `.agents/skills/` for Codex. v0.5.0 wired the consumer-side remote-fetch path; one-line `pack add` from this repo |
 

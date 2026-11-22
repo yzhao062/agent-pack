@@ -13,9 +13,9 @@ The submodule and Overleaf rules apply when the project has a `.gitmodules` file
 
 - At session start, if `.gitmodules` exists, run `git submodule status`. An uninitialized submodule (prefix `-`) gets a warning and the suggestion `git submodule update --init`.
 - A submodule has its own `.git` and `origin`; commits and pushes inside it go to the submodule's upstream, not the parent.
-- Submodules are shared repos: a push lands in a collaborator's Overleaf project or co-PI repo, and a careless force-push or overwrite destroys someone else's work. Treat every write inside a submodule as high-risk.
+- Treat every write inside a submodule as high-risk: a push can land in a collaborator's Overleaf project or co-PI repo, and a careless force-push or overwrite can destroy someone else's work.
 - When the user asks to push or pull a submodule:
-  1. Before writing, run `git -C <submodule-path> fetch` and `status` for uncommitted changes, then `log --oneline -5` with and without `--remotes` for recent activity. This is a quick sanity check; a submodule is often in detached-HEAD state, where branch comparisons do not apply cleanly.
+  1. Before writing, run `git -C <submodule-path> fetch` and `status` for uncommitted changes, then `log --oneline -5` with and without `--remotes` for recent activity. A submodule is often in detached-HEAD state, where branch comparisons do not apply cleanly.
   2. Use `git -C <submodule-path>` inside the submodule, and confirm with the user before any commit, push, pull, or reset.
   3. Back in the parent repo, `git add <submodule-path>` and commit the updated pointer (also with confirmation).
 - A submodule's `.gitignore` may exclude internal-only directories (`.agent/`, `guardrail/`, `figure-spec/`, `figure-src/`); they exist on disk but are not pushed, so a fresh clone lacks them. Warn the user when an expected internal directory is absent.
@@ -23,7 +23,7 @@ The submodule and Overleaf rules apply when the project has a `.gitmodules` file
 
 ## Overleaf Merge Conflict Resolution
 
-Overleaf's git bridge branches from its own snapshot, which may lag behind the latest local push. When a collaborator edits on Overleaf while we push structural changes locally, "theirs" in the merge means the older base plus the collaborator's edits. Taking that side with `git checkout --theirs` silently discards our work. Co-PI changes are the priority: our structural work (compaction, renames) can be redone in minutes, while a co-PI's content edits are their intellectual contribution and a silent drop goes unnoticed. Preserve both sides, and when in doubt, err toward the co-PI's content.
+The Overleaf bridge branches from a snapshot that can lag our latest push, so after a local structural push, "theirs" in a merge can be the older base plus the collaborator's edits. Preserve both sides, and when in doubt, favor the co-PI's content.
 
 ### Rules for Merging Overleaf Branches with Conflicts
 
@@ -44,11 +44,11 @@ Overleaf's git bridge branches from its own snapshot, which may lag behind the l
 
 ### Recovery if `--theirs` Was Already Used
 
-Restore our structural version with `git restore --source=<pre-merge-commit> --worktree -- <file>` (shell redirection on Windows brings encoding and line-ending issues), then reapply the collaborator's content and formatting changes on top. The reapply step is part of the recovery.
+Restore our structural version with `git restore --source=<pre-merge-commit> --worktree -- <file>`, then reapply the collaborator's content and formatting changes on top.
 
 ## Venue Conventions
 
-For NSF and federal proposals, do not introduce DEI-related terms unless the solicitation explicitly requires them; a non-federal call that asks for DEI framing gets it. NSF Merit Review framework by default (intellectual merit and broader impacts); NIH Simplified Peer Review on biomedical proposals. For papers, follow the venue's own guidelines (NeurIPS, ICML, ICLR, KDD, ACL, EMNLP, CVPR), and generate venue-specific formatting (camera-ready, anonymous version) only when asked.
+For NSF and federal proposals, do not introduce DEI-related terms unless the solicitation explicitly requires them; a non-federal call that asks for DEI framing gets it. NSF Merit Review framework by default (intellectual merit and broader impacts); NIH Simplified Peer Review on biomedical proposals; DOE or DOD frameworks only on explicit request. For papers, follow the venue's own guidelines (NeurIPS, ICML, ICLR, KDD, ACL, EMNLP, CVPR), and generate venue-specific formatting (camera-ready, anonymous version) only when asked.
 
 ## Revision Discipline
 

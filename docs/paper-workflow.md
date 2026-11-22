@@ -24,7 +24,7 @@ paper or proposal.
 - Some projects use git submodules for directories shared with collaborators (e.g., co-PI proposal repos, shared paper repos linked to Overleaf).
 - At session start, if `.gitmodules` exists, run `git submodule status` to check submodule state. If submodules are uninitialized (prefix `-`), warn the user and suggest `git submodule update --init`.
 - Submodule directories have their own `.git` and `origin` remote. Commits and pushes inside a submodule go to the submodule's upstream repo, not the parent.
-- **Submodules are shared repos.** Pushes land directly in a collaborator's Overleaf project or co-PI repo. A careless force-push or overwrite can destroy someone else's work. Treat every write operation inside a submodule as high-risk.
+- **Submodules are shared repos.** Pushes can land directly in a collaborator's Overleaf project or co-PI repo. A careless force-push or overwrite can destroy someone else's work. Treat every write operation inside a submodule as high-risk.
 - When the user asks to push or pull a submodule:
   1. Before writing, run `git -C <submodule-path> fetch` then `git -C <submodule-path> status` to check for uncommitted local changes. Review recent history with `git -C <submodule-path> log --oneline -5` to see local commits and `git -C <submodule-path> log --oneline -5 --remotes` to see recent remote-tracking activity. This is a quick sanity check, not a full divergence analysis; submodules are often in detached-HEAD state where branch comparisons do not apply cleanly.
   2. Use `git -C <submodule-path>` for git operations inside the submodule. Always confirm with the user before any commit, push, pull, or reset.
@@ -70,7 +70,7 @@ Restore our structural version from the pre-merge commit with `git restore --sou
 
 For NSF / federal proposal work, do not introduce DEI-related terms unless the solicitation explicitly requires them. For non-federal proposals or calls that explicitly request DEI framing or terminology, follow the call requirements instead of applying a blanket ban.
 
-NSF Merit Review framework defaults: intellectual merit + broader impacts. NIH Simplified Peer Review framework on biomedical proposals.
+NSF Merit Review framework defaults: intellectual merit + broader impacts. NIH Simplified Peer Review framework on biomedical proposals. DOE or DOD frameworks only on explicit request.
 
 For paper venues, follow the venue's specific guidelines (NeurIPS / ICML / ICLR / KDD / ACL / EMNLP / CVPR). Do not generate venue-specific formatting (camera-ready, anonymous-version, etc.) unless asked.
 
