@@ -27,8 +27,8 @@ paper or proposal.
 - **Submodules are shared repos.** Pushes can land directly in a collaborator's Overleaf project or co-PI repo. A careless force-push or overwrite can destroy someone else's work. Treat every write operation inside a submodule as high-risk.
 - When the user asks to push or pull a submodule:
   1. Before writing, run `git -C <submodule-path> fetch` then `git -C <submodule-path> status` to check for uncommitted local changes. Review recent history with `git -C <submodule-path> log --oneline -5` to see local commits and `git -C <submodule-path> log --oneline -5 --remotes` to see recent remote-tracking activity. This is a quick sanity check, not a full divergence analysis; submodules are often in detached-HEAD state where branch comparisons do not apply cleanly.
-  2. Use `git -C <submodule-path>` for git operations inside the submodule. Always confirm with the user before any commit, push, pull, or reset.
-  3. Back in the parent repo, update the submodule pointer: `git add <submodule-path>` then commit (also requires confirmation).
+  2. Use `git -C <submodule-path>` for git operations inside the submodule. Confirm with the user before any push.
+  3. Back in the parent repo, update the submodule pointer: `git add <submodule-path>` then commit.
 - Submodules may have a `.gitignore` that excludes internal-only files (e.g., `.agent/`, `guardrail/`, `figure-spec/`, `figure-src/`). These files exist on disk but are not pushed to the collaborator repo. On a fresh clone, they will be missing. Warn the user if expected internal directories are absent.
 - `context/` is synced to co-PI repos and will be available after submodule init.
 - Project-specific submodule details (which directories, which upstream repos, which files are internal-only) belong in `CLAUDE.md` or `AGENTS.local.md` in each project repo, not here.

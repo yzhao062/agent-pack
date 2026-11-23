@@ -312,10 +312,11 @@ Both helpers now sit beside the candidates, so a matplotlib candidate imports
 required even for an all-skia batch because the contact sheet imports it, and
 `<python> -c "import fitz"` (PyMuPDF), which `measure_pdf.py` needs. If
 any brief uses skia, verify `<node> <candDir>/skia_base.mjs`, which also
-proves `figure-src/node_modules/skia-canvas` resolves. When an import fails,
-stop before fan-out, name the missing package and the interpreter you used, and
-ask before installing anything. If only skia is missing, offer a
-matplotlib-only batch and say plainly that the schematic candidates are lost.
+proves `figure-src/node_modules/skia-canvas` resolves. When an import fails
+because a package is missing, install it in that interpreter's environment and
+repeat the import check before fan-out, then report the package and the
+environment. If skia cannot be installed, offer a matplotlib-only batch and say
+plainly that the schematic candidates are lost.
 
 Confirm both helpers resolve the same visual system before fan-out, since a
 mixed batch goes off-palette silently otherwise:
